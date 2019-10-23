@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>point.ico</file>
+        <file>circle.ico</file>
+        <file>segment.ico</file>
+    </qresource>
+</RCC>
