@@ -6,22 +6,23 @@
 class SKMidPoint : public SKPoint
 {
 public:
-   SKMidPoint(SKFigure *obj1, SKFigure *obj2);
+    SKMidPoint(SKFigure *obj1, SKFigure *obj2);
+    ~SKMidPoint() override = default;
 
-	QRectF boundingRect() const;
-	void paint(QPainter *painter,
-				  const QStyleOptionGraphicsItem *option,
-				  QWidget *widget);
-	QPainterPath shape() const;
+    virtual NsFigure::objEnum getTypeClass() override { return NsFigure::POINT; }
+    virtual NsFigure::objEnum getType() override { return NsFigure::MIDPOINT; }
+    virtual void updateItem() override;
 
-	virtual NsFigure::objEnum getType();
-	virtual NsFigure::objEnum getTypeClass();
-	virtual void updateItem();
+    QRectF boundingRect() const override;
+    void paint(QPainter *painter,
+               const QStyleOptionGraphicsItem *option,
+               QWidget *widget) override;
+    QPainterPath shape() const override;
 
 private:
-	SKFigure *p1, *p2;
-	qreal w, h;
-	QPointF l1, l2;
+    SKFigure *p1, *p2;
+    qreal    w, h;
+    QPointF  l1, l2;
 };
 
 #endif // MIDPOINT_H

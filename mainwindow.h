@@ -6,7 +6,7 @@
 #include "GraphicsSelectionScene.h"
 
 namespace Ui {
-    class MainWindow;
+class MainWindow;
 }
 
 class MainWindow : public QMainWindow
@@ -14,22 +14,23 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = 0);
+    explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    virtual void resizeEvent(QResizeEvent *event);
 
 private slots:
-	void on_actionPunkt_triggered();
+    void on_actionPunkt_triggered();
 
-	void on_actionStrecke_triggered();
+    void on_actionStrecke_triggered();
 
-        void on_actionGitter_100x100_triggered();
+    void on_actionKreis_triggered();
 
-        void on_actionKreis_triggered();
+    void on_actionSelect_triggered();
 
 private:
     Ui::MainWindow *ui;
-	 QGridLayout *layout;
-	 GraphicsSelectionScene *scene;
+    QGridLayout *layout;
+    GraphicsSelectionScene *scene;
 };
 
 #endif // MAINWINDOW_H

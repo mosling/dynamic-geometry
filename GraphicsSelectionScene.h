@@ -10,24 +10,20 @@
 class GraphicsSelectionScene : public QGraphicsScene
 {
 public:
-    GraphicsSelectionScene(QObject *parent = 0);
+    GraphicsSelectionScene(QObject *parent = nullptr);
 
-    void setNewFigureType(NsFigure::objEnum aType);
-    void setSelectionMode(const QString &objList);
-    void setAddPointMode(bool aMode);
-
-    virtual void addItem(QGraphicsItem *item);
-    virtual void removeItem(QGraphicsItem *item);
+    void setNewFigureType(NsFigure::objEnum aType, const QString &objList);
 
 protected:
-    void mousePressEvent(QGraphicsSceneMouseEvent* pMouseEvent);
+    void mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent);
 
 private:
-    QString selectionString;
+    QString           selectionString;
+    int               selectionStringIndex;
     NsFigure::objEnum newType;
     QList<SKFigure *> selectionList;
-    QMap<QChar, int> objTypeMap;
-    bool addPointMode;
+    QMap<QChar, int>  objTypeMap;
+    bool              addPointMode;
 };
 
 #endif // GRAPHICSSELECTIONSCENE_H

@@ -1,4 +1,6 @@
 #include <cmath>
+#include <string>
+#include <sstream>
 #include <QDebug>
 #include <QGraphicsSceneMouseEvent>
 #include <QGraphicsItem>
@@ -11,34 +13,41 @@ GraphicsSelectionScene::GraphicsSelectionScene(QObject *parent)
     objTypeMap['P'] = NsFigure::PCLASS;
 }
 
-void GraphicsSelectionScene::mousePressEvent(QGraphicsSceneMouseEvent *pMouseEvent)
+void GraphicsSelectionScene::setNewFigureType(NsFigure::objEnum aType, const QString &objList)
+{
+    newType = aType;
+    selectionList.clear();
+    selectionString = objList;
+
+    qDebug() << "set selection list for " << NsFigure::objName[aType] << " to " << objList;
+}
+
+void GraphicsSelectionScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
 {
     QGraphicsItem* pItemUnderMouse =
-            itemAt(pMouseEvent->scenePos().x(),
-                   pMouseEvent->scenePos().y(),
+            itemAt(mouseEvent->scenePos().x(),
+                   mouseEvent->scenePos().y(),
                    QTransform());
 
-    qDebug() << "Scene Rectangle: " << this->sceneRect();
-    qDebug() << "mouse at scene  : " << pMouseEvent->scenePos();
-    qDebug() << "mouse at screen : " << pMouseEvent->screenPos();
-    qDebug() << "Wait for " << selectionString;
+    qDebug() << "Wait for " << selectionString << "[" << selectionStringIndex << "]";
 
-
-    if (addPointMode)
+    if (NsFigure::POINT == newType)
     {
+        // points are the only independent elements
         SKPoint *skp = new SKPoint();
-        qDebug() << "ready --> adding new point";
-        skp->setPos(pMouseEvent->scenePos());
+        qDebug() << "  --> adding new point";
+        skp->setPos(mouseEvent->scenePos());
         skp->setZValue(-10);
         this->addItem(skp);
     }
     else if ( pItemUnderMouse &&
               (pItemUnderMouse->flags() & QGraphicsItem::ItemIsSelectable))
     {
+        // all other figures depends on points and other figures
         SKFigure *f = dynamic_cast<SKFigure*>(pItemUnderMouse);
         qDebug() << "  object    : " << f->toolTip();
         qDebug() << "  find item : " << f->getTypeClass();
-        if ( !selectionString.isEmpty() )
+        if ( selectionStringIndex < selectionString.length() )
         {
             NsFigure::objEnum fClass = f->getTypeClass();
             qDebug() << "  find item type" << fClass;
@@ -47,18 +56,18 @@ void GraphicsSelectionScene::mousePressEvent(QGraphicsSceneMouseEvent *pMouseEve
             while (it.hasNext() && !match)
             {
                 it.next();
-                if (it.key()==selectionString.at(0) && it.value()==fClass )
+                if (it.key()==selectionString.at(selectionStringIndex) && it.value()==fClass )
                 {
-                    qDebug() << "found right type " << it.key();
+                    qDebug() << "  found matching type " << it.key();
                     match = true;
                     selectionList.append(f);
                     pItemUnderMouse->setSelected(!pItemUnderMouse->isSelected());
-                    selectionString.remove(0,1);
+                    selectionStringIndex++;
                 }
             }
-            if (selectionString.isEmpty())
+            if (selectionStringIndex == selectionString.length())
             {
-                qDebug() << "ready --> construct new object";
+                qDebug() << "  --> construct new object";
                 SKFigure *mp = nullptr;
                 switch (newType)
                 {
@@ -72,6 +81,8 @@ void GraphicsSelectionScene::mousePressEvent(QGraphicsSceneMouseEvent *pMouseEve
                     break;
                 }
                 this->addItem(mp);
+                // and setup for the next geometry object
+                selectionStringIndex = 0;
             }
             return;
         }
@@ -81,49 +92,5 @@ void GraphicsSelectionScene::mousePressEvent(QGraphicsSceneMouseEvent *pMouseEve
         qDebug() << "  ... no element found";
     }
 
-    QGraphicsScene::mousePressEvent(pMouseEvent);
+    QGraphicsScene::mousePressEvent(mouseEvent);
 }
-
-void GraphicsSelectionScene::addItem(QGraphicsItem *item)
-{
-    QGraphicsScene::addItem(item);
-    return;
-
-    if (nullptr != item)
-    {
-        QRectF sr = this->sceneRect();
-        QRectF bb = QRectF(item->pos().x(), item->pos().y(),
-                           item->boundingRect().width(), item->boundingRect().height());
-
-        qDebug() << "scene position   : " << item->pos();
-        qDebug() << "scene rectangle  : " << sr;
-        qDebug() << "item bounding box: " << bb;
-        this->setSceneRect(sr.united(bb));
-        qDebug() << "resulting scene  : " << this->sceneRect();
-    }
-}
-
-void GraphicsSelectionScene::removeItem(QGraphicsItem *item)
-{
-    QGraphicsScene::removeItem(item);
-}
-
-void GraphicsSelectionScene::setSelectionMode(const QString &objList)
-{
-    selectionList.clear();
-    selectionString = objList;
-    setAddPointMode(false);
-    qDebug() << "set selection list " << objList;
-}
-
-void GraphicsSelectionScene::setNewFigureType(NsFigure::objEnum aType)
-{
-    newType = aType;
-}
-
-void GraphicsSelectionScene::setAddPointMode(bool aMode)
-{
-    addPointMode = aMode;
-}
-
-

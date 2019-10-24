@@ -18,9 +18,9 @@ namespace NsFigure
 		"plumb-line", "parallel-line", "horizontal-line", "algorithm",
 		"dyn-circle"};
 
-	static QChar objShort[]={'T', 'L', 'P', 'C', 'O', 'M', 'p', 's',
-		'l', 'r', 'c', 't', '_', 'i', '_', '_', '_', 'd', '_', '_', '_', 'h',
-		'a', '_' };
+//	static QChar objShort[]={'T', 'L', 'P', 'C', 'O', 'M', 'p', 's',
+//		'l', 'r', 'c', 't', '_', 'i', '_', '_', '_', 'd', '_', '_', '_', 'h',
+//		'a', '_' };
 
 }
 

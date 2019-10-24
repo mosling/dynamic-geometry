@@ -19,7 +19,11 @@
      <widget class="QWidget" name="mainWidget" native="true">
       <layout class="QGridLayout" name="gridLayout_2">
        <item row="0" column="0">
-        <widget class="QGraphicsView" name="graphicsView"/>
+        <widget class="QGraphicsView" name="graphicsView">
+         <property name="mouseTracking">
+          <bool>true</bool>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>
@@ -36,17 +40,25 @@
     </rect>
    </property>
    <widget class="QMenu" name="menuElements">
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
     <property name="title">
      <string>Elements</string>
     </property>
     <addaction name="actionPunkt"/>
     <addaction name="actionStrecke"/>
     <addaction name="actionKreis"/>
-    <addaction name="actionGitter_100x100"/>
    </widget>
    <addaction name="menuElements"/>
   </widget>
-  <widget class="QStatusBar" name="statusBar"/>
+  <widget class="QStatusBar" name="statusBar">
+   <property name="layoutDirection">
+    <enum>Qt::RightToLeft</enum>
+   </property>
+  </widget>
   <widget class="QToolBar" name="toolBar">
    <property name="windowTitle">
     <string>toolBar</string>
@@ -58,6 +70,7 @@
     <bool>false</bool>
    </attribute>
    <addaction name="separator"/>
+   <addaction name="actionSelect"/>
    <addaction name="actionPunkt"/>
    <addaction name="actionStrecke"/>
    <addaction name="actionKreis"/>
@@ -73,8 +86,17 @@
    <property name="text">
     <string>Punkt</string>
    </property>
+   <property name="font">
+    <font>
+     <family>Segoe UI</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
   </action>
   <action name="actionStrecke">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="icon">
     <iconset resource="graphview.qrc">
      <normaloff>:/icons/segment.ico</normaloff>:/icons/segment.ico</iconset>
@@ -82,19 +104,50 @@
    <property name="text">
     <string>Strecke</string>
    </property>
-  </action>
-  <action name="actionGitter_100x100">
-   <property name="text">
-    <string>Gitter 100x100</string>
+   <property name="font">
+    <font>
+     <family>Segoe UI</family>
+     <pointsize>10</pointsize>
+    </font>
    </property>
   </action>
   <action name="actionKreis">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="icon">
     <iconset resource="graphview.qrc">
      <normaloff>:/icons/circle.ico</normaloff>:/icons/circle.ico</iconset>
    </property>
    <property name="text">
     <string>Kreis</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Segoe UI</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="actionSelect">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="graphview.qrc">
+     <normaloff>:/icons/point.ico</normaloff>:/icons/point.ico</iconset>
+   </property>
+   <property name="text">
+    <string>Select</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Segoe UI</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="shortcutContext">
+    <enum>Qt::WidgetWithChildrenShortcut</enum>
    </property>
   </action>
  </widget>

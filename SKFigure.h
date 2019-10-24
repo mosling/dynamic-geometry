@@ -14,8 +14,8 @@ public:
 
     enum { PointType = UserType + 1, SegmentType, MidPoint, Circle };
 
-    virtual NsFigure::objEnum getType();
-    virtual NsFigure::objEnum getTypeClass();
+    virtual inline NsFigure::objEnum getTypeClass() { return NsFigure::OBJECT; }
+    virtual inline NsFigure::objEnum getType() { return NsFigure::OBJECT; }
     virtual void updateItem();
 
     void addChild(SKFigure *child);
@@ -29,9 +29,7 @@ protected:
 private:
     QSet<SKFigure *> *childs;
     QSet<SKFigure *> *parents;
-    SKFigure *removingChild;
-
-
+    SKFigure         *removingChild;
 };
 
 #endif // SKFIGURE_H

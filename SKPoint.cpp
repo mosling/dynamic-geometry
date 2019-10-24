@@ -1,24 +1,11 @@
 ﻿#include <QDebug>
 #include "SKPoint.h"
 
-SKPoint::SKPoint() :	SKFigure(), radius(5)
+SKPoint::SKPoint():
+    SKFigure(),
+    radius(5)
 {
     setToolTip("Point2D");
-}
-
-SKPoint::~SKPoint()
-{
-
-}
-
-NsFigure::objEnum SKPoint::getType()
-{
-    return NsFigure::POINT;
-}
-
-NsFigure::objEnum SKPoint::getTypeClass()
-{
-    return NsFigure::PCLASS;
 }
 
 QRectF SKPoint::boundingRect() const
@@ -30,6 +17,9 @@ void SKPoint::paint(QPainter *painter,
                     const QStyleOptionGraphicsItem *option,
                     QWidget *widget)
 {
+    (void)option;
+    (void)widget;
+
     QRectF rec = boundingRect();
     QBrush brush(Qt::blue);
     QPen pen(brush,2,Qt::SolidLine);

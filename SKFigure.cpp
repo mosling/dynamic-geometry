@@ -24,8 +24,8 @@ SKFigure::~SKFigure()
 		p->removeChild(this);
 	}
 
-	//! Jetzt können die Kinder gelöscht werden, da diese
-	//! sich auch aus den Mengen childs entfernen wollen, müssen
+	//! Jetzt koennen die Kinder geloescht werden, da diese
+	//! sich auch aus den Mengen childs entfernen wollen, muessen
 	//! wir dies an dieser Stelle verhindern.
 	foreach (SKFigure *c, *childs)
 	{
@@ -35,7 +35,7 @@ SKFigure::~SKFigure()
 		qDebug()<< "}";
 
 	}
-	removingChild = NULL;
+    removingChild = nullptr;
 
 	delete childs;
 	delete parents;
@@ -79,14 +79,3 @@ QVariant SKFigure::itemChange(QGraphicsItem::GraphicsItemChange change,
 
 	return QGraphicsItem::itemChange(change, value);
 }
-
-NsFigure::objEnum SKFigure::getType()
-{
-	return NsFigure::OBJECT;
-}
-
-NsFigure::objEnum SKFigure::getTypeClass()
-{
-	return NsFigure::OBJECT;
-}
-

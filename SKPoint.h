@@ -8,20 +8,21 @@
 class SKPoint : public SKFigure
 {
 public:
-	explicit SKPoint();
-	~SKPoint();
+    explicit SKPoint();
+    ~SKPoint() override = default;
 
-	virtual NsFigure::objEnum getType();
-	virtual NsFigure::objEnum getTypeClass();
+    virtual NsFigure::objEnum getTypeClass() override {return NsFigure::PCLASS; }
+    virtual NsFigure::objEnum getType() override {return NsFigure::POINT; }
 
-	QRectF boundingRect() const;
-	void paint(QPainter *painter,
-				  const QStyleOptionGraphicsItem *option,
-				  QWidget *widget);
-   void setRadius(qreal aRadius);
+    QRectF boundingRect() const override;
+    void paint(QPainter *painter,
+               const QStyleOptionGraphicsItem *option,
+               QWidget *widget) override;
+
+    void setRadius(qreal aRadius);
 
 private:
-   qreal radius;
+    qreal radius;
 
 };
 
