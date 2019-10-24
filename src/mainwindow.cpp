@@ -16,10 +16,11 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->actionKreis->setActionGroup(actionGroup);
     ui->actionStrecke->setActionGroup(actionGroup);
     ui->actionSelect->setActionGroup(actionGroup);
+    ui->actionLine->setActionGroup(actionGroup);
 
     // create the scene and connect to view
     scene = new GraphicsSelectionScene();
-    const int sceneSize = 600;
+    const int sceneSize = 800;
     const QRectF sceneRect(0.0, sceneSize, sceneSize, sceneSize);
     scene->setSceneRect(sceneRect);
 
@@ -69,4 +70,9 @@ void MainWindow::on_actionKreis_triggered()
 void MainWindow::on_actionSelect_triggered()
 {
     scene->setNewFigureType(NsFigure::OBJECT, nullptr);
+}
+
+void MainWindow::on_actionLine_triggered()
+{
+    scene->setNewFigureType(NsFigure::LINE, "PP");
 }

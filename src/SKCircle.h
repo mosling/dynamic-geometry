@@ -3,14 +3,20 @@
 
 #include "SKFigure.h"
 
-//! Kreis bestehend aus einem Mittelpunkt und einem Punkt auf dem Rand
+//! Creates a circle by two points defining the radius of the circle
 class SKCircle : public SKFigure
 {
 public:
     SKCircle(SKFigure *obj1, SKFigure *obj2);
 
-    virtual NsFigure::objEnum getTypeClass() override { return NsFigure::CCLASS; }
-    virtual NsFigure::objEnum getType() override { return NsFigure::CIRCLE; }
+    virtual NsFigure::objEnum getTypeClass() override
+    {
+        return NsFigure::CCLASS;
+    }
+    virtual NsFigure::objEnum getType() override
+    {
+        return NsFigure::CIRCLE;
+    }
     virtual void updateItem() override;
 
     QRectF boundingRect() const override;
@@ -20,10 +26,9 @@ public:
     QPainterPath shape() const override;
 
 private:
-    SKFigure *p1, *p2;
-    qreal    lr, r;
-    qreal    ld, d;
+    qreal    r, d;
     bool     lastBox;
+    SKFigure *p1, *p2;
 };
 
 #endif // SKCIRCLE_H

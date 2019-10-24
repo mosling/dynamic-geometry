@@ -12,23 +12,21 @@ public:
     explicit SKFigure();
     ~SKFigure();
 
-    enum { PointType = UserType + 1, SegmentType, MidPoint, Circle };
-
     virtual inline NsFigure::objEnum getTypeClass() { return NsFigure::OBJECT; }
     virtual inline NsFigure::objEnum getType() { return NsFigure::OBJECT; }
     virtual void updateItem();
 
-    void addChild(SKFigure *child);
-    void removeChild(SKFigure *child);
-    void addParent(SKFigure *parent);
+    void addBaseFigure(SKFigure *child);
+    void removeDependent(SKFigure *child);
+    void addDependentFigure(SKFigure *parent);
 
 protected:
     QVariant itemChange(GraphicsItemChange change,
                         const QVariant &value);
 
 private:
-    QSet<SKFigure *> *childs;
-    QSet<SKFigure *> *parents;
+    QSet<SKFigure *> *baseFigureSet;
+    QSet<SKFigure *> *dependentFigureSet;
     SKFigure         *removingChild;
 };
 

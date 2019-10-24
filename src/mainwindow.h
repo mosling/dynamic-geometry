@@ -27,6 +27,8 @@ private slots:
 
     void on_actionSelect_triggered();
 
+    void on_actionLine_triggered();
+
 private:
     Ui::MainWindow *ui;
     QGridLayout *layout;

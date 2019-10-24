@@ -7,57 +7,50 @@ SKFigure::SKFigure() :  QGraphicsItem(), removingChild(NULL)
 	setFlag(ItemIsSelectable);
 	setFlag(ItemSendsGeometryChanges);
 
-	childs = new QSet<SKFigure*>;
-	parents = new QSet<SKFigure*>;
+    baseFigureSet = new QSet<SKFigure*>;
+    dependentFigureSet = new QSet<SKFigure*>;
 
 	setToolTip("BaseFigure");
 }
 
 SKFigure::~SKFigure()
 {
-	// zuerst wird das Objekt aus Vaterobjekten entfernt
-
-	qDebug() << "deleting object " << this->toolTip();
-	foreach (SKFigure *p, *parents)
+    foreach (SKFigure *p, *dependentFigureSet)
 	{
-		qDebug() << "remove from child " << p->toolTip();
-		p->removeChild(this);
+        p->removeDependent(this);
 	}
 
 	//! Jetzt koennen die Kinder geloescht werden, da diese
 	//! sich auch aus den Mengen childs entfernen wollen, muessen
 	//! wir dies an dieser Stelle verhindern.
-	foreach (SKFigure *c, *childs)
+    foreach (SKFigure *c, *baseFigureSet)
 	{
-		qDebug()<<"start child removing " << c->toolTip() << "{";
 		removingChild = c;
 		delete c;
-		qDebug()<< "}";
-
 	}
     removingChild = nullptr;
 
-	delete childs;
-	delete parents;
+    delete baseFigureSet;
+    delete dependentFigureSet;
 }
 
-void SKFigure::addChild(SKFigure *child)
+void SKFigure::addBaseFigure(SKFigure *child)
 {
-	childs->insert(child);
-	child->addParent(this);
+    baseFigureSet->insert(child);
+    child->addDependentFigure(this);
 }
 
-void SKFigure::removeChild(SKFigure *child)
+void SKFigure::removeDependent(SKFigure *child)
 {
 	if (child != removingChild)
 	{
-		childs->remove(child);
+        baseFigureSet->remove(child);
 	}
 }
 
-void SKFigure::addParent(SKFigure *parent)
+void SKFigure::addDependentFigure(SKFigure *parent)
 {
-	parents->insert(parent);
+    dependentFigureSet->insert(parent);
 }
 
 void SKFigure::updateItem()
@@ -70,7 +63,7 @@ QVariant SKFigure::itemChange(QGraphicsItem::GraphicsItemChange change,
 {
    if (change == ItemPositionHasChanged && scene() )
 	{
-		foreach(SKFigure *child, *childs)
+        foreach(SKFigure *child, *baseFigureSet)
 		{
 			child->updateItem();
 			child->itemChange(change, value);

@@ -5,5 +5,6 @@
 #include "SKPoint.h"
 #include "SKMidPoint.h"
 #include "SKCircle.h"
+#include "SKLine.h"
 
 #endif // ALLFIGURES_H

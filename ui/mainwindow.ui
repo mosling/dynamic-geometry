@@ -36,7 +36,7 @@
      <x>0</x>
      <y>0</y>
      <width>400</width>
-     <height>21</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuElements">
@@ -74,17 +74,14 @@
    <addaction name="actionPunkt"/>
    <addaction name="actionStrecke"/>
    <addaction name="actionKreis"/>
+   <addaction name="actionLine"/>
   </widget>
   <action name="actionPunkt">
    <property name="checkable">
     <bool>true</bool>
    </property>
-   <property name="icon">
-    <iconset resource="graphview.qrc">
-     <normaloff>:/icons/point.ico</normaloff>:/icons/point.ico</iconset>
-   </property>
    <property name="text">
-    <string>Punkt</string>
+    <string>Point</string>
    </property>
    <property name="font">
     <font>
@@ -97,12 +94,8 @@
    <property name="checkable">
     <bool>true</bool>
    </property>
-   <property name="icon">
-    <iconset resource="graphview.qrc">
-     <normaloff>:/icons/segment.ico</normaloff>:/icons/segment.ico</iconset>
-   </property>
    <property name="text">
-    <string>Strecke</string>
+    <string>Segment</string>
    </property>
    <property name="font">
     <font>
@@ -115,12 +108,8 @@
    <property name="checkable">
     <bool>true</bool>
    </property>
-   <property name="icon">
-    <iconset resource="graphview.qrc">
-     <normaloff>:/icons/circle.ico</normaloff>:/icons/circle.ico</iconset>
-   </property>
    <property name="text">
-    <string>Kreis</string>
+    <string>Circle</string>
    </property>
    <property name="font">
     <font>
@@ -132,10 +121,6 @@
   <action name="actionSelect">
    <property name="checkable">
     <bool>true</bool>
-   </property>
-   <property name="icon">
-    <iconset resource="graphview.qrc">
-     <normaloff>:/icons/point.ico</normaloff>:/icons/point.ico</iconset>
    </property>
    <property name="text">
     <string>Select</string>
@@ -150,10 +135,22 @@
     <enum>Qt::WidgetWithChildrenShortcut</enum>
    </property>
   </action>
+  <action name="actionLine">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Line</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Segoe UI</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources>
-  <include location="graphview.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

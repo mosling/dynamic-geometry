@@ -1,28 +1,13 @@
-CONFIG   += c++17
-QT       += core gui widgets
+CONFIG         += c++17
+QT             += core gui widgets
 
-TARGET = graphview
-TEMPLATE = app
+TARGET         = dynamic-geometry
+TEMPLATE       = app
 
 
-SOURCES += main.cpp\
-    mainwindow.cpp \
-    GraphicsSelectionScene.cpp \
-    SKFigure.cpp \
-    SKPoint.cpp \
-    SKMidPoint.cpp \
-    SKCircle.cpp
+SOURCES        += $$files(src/*.cpp, true)
+HEADERS        += $$files(src/*.h, true)
 
-HEADERS  += mainwindow.h \
-    GraphicsSelectionScene.h \
-    SKFigure.h \
-    SKPoint.h \
-    FigureTypes.h \
-    AllFigures.h \
-    SKMidPoint.h \
-    SKCircle.h
+FORMS          += ui/mainwindow.ui
 
-FORMS    += mainwindow.ui
-
-RESOURCES += \
-    graphview.qrc
+RESOURCES      += resources/icons.qrc

@@ -9,7 +9,7 @@ public:
     SKMidPoint(SKFigure *obj1, SKFigure *obj2);
     ~SKMidPoint() override = default;
 
-    virtual NsFigure::objEnum getTypeClass() override { return NsFigure::POINT; }
+    virtual NsFigure::objEnum getTypeClass() override { return NsFigure::PCLASS; }
     virtual NsFigure::objEnum getType() override { return NsFigure::MIDPOINT; }
     virtual void updateItem() override;
 

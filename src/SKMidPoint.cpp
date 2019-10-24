@@ -7,8 +7,8 @@ SKMidPoint::SKMidPoint(SKFigure *obj1, SKFigure *obj2):
     p1 = obj1;
     p2 = obj2;
 
-    p1->addChild(this);
-    p2->addChild(this);
+    p1->addBaseFigure(this);
+    p2->addBaseFigure(this);
 
     setFlags(ItemIsSelectable);
 
@@ -18,7 +18,6 @@ SKMidPoint::SKMidPoint(SKFigure *obj1, SKFigure *obj2):
 
 void SKMidPoint::updateItem()
 {
-    qDebug() << "update midpoint item";
     QPointF a = p1->scenePos();
     QPointF b = p2->scenePos();
     bool nw = false;
@@ -61,19 +60,20 @@ void SKMidPoint::paint(QPainter *painter,
     (void)option;
     (void)widget;
 
-    qDebug() << "paint midpoint item";
-    QBrush brush(Qt::lightGray);
-    QPen pen(brush,2,Qt::DashLine);
     QPen penP(Qt::blue);
 
-    painter->setPen(pen);
-    painter->drawRect(boundingRect());
+    if (withBoundingBox)
+    {
+        QBrush brush(Qt::lightGray);
+        QPen pen(brush,2,Qt::DashLine);
+        painter->setPen(pen);
+        painter->drawRect(boundingRect());
+    }
 
     painter->setBrush(QBrush(Qt::yellow));
     painter->setPen(penP);
     painter->drawLine(l1, l2);
     painter->drawEllipse(-5,-5,10,10);
-    //SKPoint::paint(painter, option, widget);
 }
 
 QPainterPath SKMidPoint::shape() const
@@ -82,4 +82,3 @@ QPainterPath SKMidPoint::shape() const
     path.addEllipse(-5,-5,10,10);
     return path;
 }
-

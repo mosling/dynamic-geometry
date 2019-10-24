@@ -3,7 +3,7 @@
 
 SKPoint::SKPoint():
     SKFigure(),
-    radius(5)
+    radius(10)
 {
     setToolTip("Point2D");
 }

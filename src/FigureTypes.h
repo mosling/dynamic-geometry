@@ -3,6 +3,8 @@
 
 #include <QString>
 
+#define withBoundingBox false
+
 namespace NsFigure
 {
 	enum objEnum {TCLASS, LCLASS, PCLASS, CCLASS, OBJECT, MULTIFIG,
