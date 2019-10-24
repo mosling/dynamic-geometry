@@ -1,9 +1,3 @@
-#-------------------------------------------------
-#
-# Project created by QtCreator 2011-07-11T22:08:36
-#
-#-------------------------------------------------
-
 CONFIG   += c++17
 QT       += core gui widgets
 
@@ -12,7 +6,7 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp \
+    mainwindow.cpp \
     GraphicsSelectionScene.cpp \
     SKFigure.cpp \
     SKPoint.cpp \
