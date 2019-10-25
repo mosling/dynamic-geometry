@@ -2,17 +2,18 @@
 #define GRAPHICSPOINTITEM_H
 
 #include <QSet>
-#include "SKFigure.h"
+#include "Shape.h"
 
-
-class SKPoint : public SKFigure
+class Point : public Shape
 {
 public:
-    explicit SKPoint();
-    ~SKPoint() override = default;
+    explicit Point();
+    ~Point() override = default;
 
-    virtual NsFigure::objEnum getTypeClass() override {return NsFigure::PCLASS; }
-    virtual NsFigure::objEnum getType() override {return NsFigure::POINT; }
+    ShapeType getTypeClass() const override { return PCLASS; }
+    ShapeType getType() const override { return POINT; }
+
+    virtual void updateItem() override;
 
     QRectF boundingRect() const override;
     void paint(QPainter *painter,
@@ -23,7 +24,6 @@ public:
 
 private:
     qreal radius;
-
 };
 
 #endif // QGRAPHICSPOINTITEM_H

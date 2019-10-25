@@ -3,9 +3,10 @@
 
 #include <QMainWindow>
 #include <QGridLayout>
-#include "GraphicsSelectionScene.h"
+#include "GeometryScene.h"
 
-namespace Ui {
+namespace Ui
+{
 class MainWindow;
 }
 
@@ -32,7 +33,7 @@ private slots:
 private:
     Ui::MainWindow *ui;
     QGridLayout *layout;
-    GraphicsSelectionScene *scene;
+    GeometryScene *scene;
 };
 
 #endif // MAINWINDOW_H

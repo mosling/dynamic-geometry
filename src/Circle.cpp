@@ -1,14 +1,14 @@
 #include <QtCore/qmath.h>
 #include <QDebug>
-#include "SKCircle.h"
+#include "Circle.h"
 
-SKCircle::SKCircle(SKFigure *obj1, SKFigure *obj2)
+Circle::Circle(Shape *obj1, Shape *obj2)
 {
     p1 = obj1;
     p2 = obj2;
 
-    p1->addBaseFigure(this);
-    p2->addBaseFigure(this);
+    p1->addDependentShape(this);
+    p2->addDependentShape(this);
 
     setFlags(ItemIsSelectable);
 
@@ -16,34 +16,34 @@ SKCircle::SKCircle(SKFigure *obj1, SKFigure *obj2)
     updateItem();
 }
 
-void SKCircle::updateItem()
+void Circle::updateItem()
 {
     QPointF a = p1->scenePos();
     QPointF b = p2->scenePos();
 
     setPos(a);
-    r = qSqrt(qPow(a.x()-b.x(),2)+ qPow(a.y()-b.y(), 2));
-    d = 2*r;
+    r = qSqrt(qPow(a.x() - b.x(), 2) + qPow(a.y() - b.y(), 2));
+    d = 2 * r;
 
     prepareGeometryChange();
 }
 
-QRectF SKCircle::boundingRect() const
+QRectF Circle::boundingRect() const
 {
     return QRectF(-r, -r, d, d);
 }
 
-void SKCircle::paint(QPainter *painter,
-                     const QStyleOptionGraphicsItem *option,
-                     QWidget *widget)
+void Circle::paint(QPainter *painter,
+                   const QStyleOptionGraphicsItem *option,
+                   QWidget *widget)
 {
     (void)option;
     (void)widget;
 
-    if (withBoundingBox)
+    if (getWithBoundingBox())
     {
         QBrush brush(Qt::lightGray);
-        QPen pen(brush,2,Qt::DashLine);
+        QPen pen(brush, 2, Qt::DashLine);
         painter->setPen(pen);
         painter->drawRect(boundingRect());
         painter->drawEllipse(boundingRect());
@@ -55,12 +55,12 @@ void SKCircle::paint(QPainter *painter,
     painter->drawPath(shape());
 }
 
-QPainterPath SKCircle::shape() const
+QPainterPath Circle::shape() const
 {
     QPainterPath path;
-    qreal id = d-r/10.0;
-    qreal ir = id/2;
-    path.addEllipse(-r,-r,d,d);
-    path.addEllipse(-ir,-ir,id,id);
+    qreal id = d - r / 10.0;
+    qreal ir = id / 2;
+    path.addEllipse(-r, -r, d, d);
+    path.addEllipse(-ir, -ir, id, id);
     return path;
 }

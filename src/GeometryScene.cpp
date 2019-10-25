@@ -5,64 +5,63 @@
 #include <QGraphicsSceneMouseEvent>
 #include <QGraphicsItem>
 #include <QMapIterator>
-#include "GraphicsSelectionScene.h"
+#include "GeometryScene.h"
 
-GraphicsSelectionScene::GraphicsSelectionScene(QObject *parent)
+GeometryScene::GeometryScene(QObject *parent)
     : QGraphicsScene(parent), selectionString("")
 {
-    objTypeMap['P'] = NsFigure::PCLASS;
+    objTypeMap['P'] = Shape::PCLASS;
 }
 
-void GraphicsSelectionScene::setNewFigureType(NsFigure::objEnum aType, const QString &objList)
+void GeometryScene::setNextNewShape(Shape::ShapeType aType, const QString &objList)
 {
-    newType = aType;
+    nextShapeType = aType;
     selectionList.clear();
     selectionString = objList;
     selectionStringIndex = 0;
 
     qDebug() << "set selection list for "
-             << NsFigure::objName[aType]
+             << Shape::typeName[aType]
              << " to "
              << selectionString;
 }
 
-void GraphicsSelectionScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
+void GeometryScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
 {
-    QGraphicsItem* pItemUnderMouse =
-            itemAt(mouseEvent->scenePos().x(),
-                   mouseEvent->scenePos().y(),
-                   QTransform());
+    QGraphicsItem *pItemUnderMouse =
+        itemAt(mouseEvent->scenePos().x(),
+               mouseEvent->scenePos().y(),
+               QTransform());
 
     if (selectionString != nullptr && 0 < selectionString.length())
     {
         qDebug() << "Wait for " << selectionString << "[" << selectionStringIndex << "]";
 
-        if (NsFigure::POINT == newType)
+        if (Shape::POINT == nextShapeType)
         {
             // points are the only independent elements
-            SKPoint *skp = new SKPoint();
+            Point *skp = new Point();
             qDebug() << "  --> adding new point";
             skp->setPos(mouseEvent->scenePos());
             skp->setZValue(-10);
             this->addItem(skp);
         }
-        else if ( pItemUnderMouse &&
-                  (pItemUnderMouse->flags() & QGraphicsItem::ItemIsSelectable))
+        else if (pItemUnderMouse &&
+                 (pItemUnderMouse->flags() & QGraphicsItem::ItemIsSelectable))
         {
             // all other figures depends on points and other figures
-            SKFigure *f = dynamic_cast<SKFigure*>(pItemUnderMouse);
+            Shape *f = dynamic_cast<Shape *>(pItemUnderMouse);
             qDebug() << "  object    : " << f->toolTip();
-            if ( selectionStringIndex < selectionString.length() )
+            if (selectionStringIndex < selectionString.length())
             {
-                NsFigure::objEnum fClass = f->getTypeClass();
-                qDebug() << "  item class" << NsFigure::objName[fClass];
+                Shape::ShapeType fClass = f->getTypeClass();
+                qDebug() << "  item class" << Shape::typeName[fClass];
                 bool match = false;
                 QMapIterator<QChar, int> it(objTypeMap);
                 while (it.hasNext() && !match)
                 {
                     it.next();
-                    if (it.key()==selectionString.at(selectionStringIndex)
-                            && it.value()==fClass )
+                    if (it.key() == selectionString.at(selectionStringIndex) && it.value() == fClass)
                     {
                         qDebug() << "  found matching type " << it.key();
                         match = true;
@@ -74,24 +73,24 @@ void GraphicsSelectionScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEven
                 if (selectionStringIndex == selectionString.length())
                 {
                     qDebug() << "  --> construct new object";
-                    SKFigure *mp = nullptr;
-                    switch (newType)
+                    Shape *mp = nullptr;
+                    switch (nextShapeType)
                     {
-                    case NsFigure::MIDPOINT:
-                        mp = new SKMidPoint(selectionList.at(0), selectionList.at(1) );
+                    case Shape::MIDPOINT:
+                        mp = new MidPoint(selectionList.at(0), selectionList.at(1));
                         break;
-                    case NsFigure::CIRCLE:
-                        mp = new SKCircle(selectionList.at(0), selectionList.at(1) );
+                    case Shape::CIRCLE:
+                        mp = new Circle(selectionList.at(0), selectionList.at(1));
                         break;
-                    case NsFigure::LINE:
-                        mp = new SKLine(selectionList.at(0), selectionList.at(1) );
+                    case Shape::LINE:
+                        mp = new Line(selectionList.at(0), selectionList.at(1));
                         break;
                     default:
                         break;
                     }
                     this->addItem(mp);
                     // and setup for the next geometry object
-                    setNewFigureType(newType, selectionString);
+                    setNextNewShape(nextShapeType, selectionString);
                 }
                 return;
             }

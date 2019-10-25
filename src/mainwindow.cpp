@@ -4,9 +4,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::MainWindow)
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
+                                          ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
 
@@ -19,7 +18,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->actionLine->setActionGroup(actionGroup);
 
     // create the scene and connect to view
-    scene = new GraphicsSelectionScene();
+    scene = new GeometryScene();
     const int sceneSize = 800;
     const QRectF sceneRect(0.0, sceneSize, sceneSize, sceneSize);
     scene->setSceneRect(sceneRect);
@@ -54,25 +53,25 @@ void MainWindow::resizeEvent(QResizeEvent *event)
 
 void MainWindow::on_actionPunkt_triggered()
 {
-    scene->setNewFigureType(NsFigure::POINT, "P");
+    scene->setNextNewShape(Shape::POINT, "P");
 }
 
 void MainWindow::on_actionStrecke_triggered()
 {
-    scene->setNewFigureType(NsFigure::MIDPOINT, "PP");
+    scene->setNextNewShape(Shape::MIDPOINT, "PP");
 }
 
 void MainWindow::on_actionKreis_triggered()
 {
-    scene->setNewFigureType(NsFigure::CIRCLE, "PP");
+    scene->setNextNewShape(Shape::CIRCLE, "PP");
 }
 
 void MainWindow::on_actionSelect_triggered()
 {
-    scene->setNewFigureType(NsFigure::OBJECT, nullptr);
+    scene->setNextNewShape(Shape::OBJECT, nullptr);
 }
 
 void MainWindow::on_actionLine_triggered()
 {
-    scene->setNewFigureType(NsFigure::LINE, "PP");
+    scene->setNextNewShape(Shape::LINE, "PP");
 }
