@@ -3,7 +3,7 @@
 
 Point::Point()
     : Shape(),
-      radius(5)
+      radius(8)
 {
     setToolTip("Point2D");
 }
@@ -19,8 +19,8 @@ QRectF Point::boundingRect() const
 }
 
 void Point::paint(QPainter *painter,
-                    const QStyleOptionGraphicsItem *option,
-                    QWidget *widget)
+                  const QStyleOptionGraphicsItem *option,
+                  QWidget *widget)
 {
     (void)option;
     (void)widget;
@@ -30,18 +30,25 @@ void Point::paint(QPainter *painter,
     QPen pen(brush, 2, Qt::SolidLine);
 
     if (isSelected())
+    {
         brush.setColor(Qt::red);
+    }
     else
+    {
         brush.setColor(Qt::green);
+    }
 
     painter->setBrush(brush);
     painter->setPen(pen);
     painter->drawEllipse(rec);
 
-    QBrush b(Qt::lightGray);
-    QPen p(b, 2, Qt::DashLine);
-    painter->setPen(p);
-    painter->drawRect(boundingRect());
+    if (getWithBoundingBox())
+    {
+        QBrush b(Qt::lightGray);
+        QPen p(b, 2, Qt::DashLine);
+        painter->setPen(p);
+        painter->drawRect(boundingRect());
+    }
 }
 
 void Point::setRadius(qreal aRadius)

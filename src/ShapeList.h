@@ -6,5 +6,7 @@
 #include "MidPoint.h"
 #include "Circle.h"
 #include "Line.h"
+#include "PointAtCircle.h"
+#include "DynamicCircle.h"
 
 #endif // ALLFIGURES_H

@@ -16,12 +16,15 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
     ui->actionStrecke->setActionGroup(actionGroup);
     ui->actionSelect->setActionGroup(actionGroup);
     ui->actionLine->setActionGroup(actionGroup);
+    ui->actionPointAtCircle->setActionGroup(actionGroup);
+    ui->actionDynamicCircle->setActionGroup(actionGroup);
 
     // create the scene and connect to view
     scene = new GeometryScene();
     const int sceneSize = 800;
     const QRectF sceneRect(0.0, sceneSize, sceneSize, sceneSize);
     scene->setSceneRect(sceneRect);
+    scene->setStatusBar(ui->statusBar);
 
     ui->graphicsView->setScene(scene);
     ui->graphicsView->setRenderHints(QPainter::SmoothPixmapTransform);
@@ -74,4 +77,14 @@ void MainWindow::on_actionSelect_triggered()
 void MainWindow::on_actionLine_triggered()
 {
     scene->setNextNewShape(Shape::LINE, "PP");
+}
+
+void MainWindow::on_actionPointAtCircle_triggered()
+{
+    scene->setNextNewShape(Shape::DISTPOINT , "PP");
+}
+
+void MainWindow::on_actionDynamicCircle_triggered()
+{
+    scene->setNextNewShape(Shape::DYNCIRCLE , "PC");
 }

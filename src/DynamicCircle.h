@@ -2,15 +2,14 @@
 
 #include "Shape.h"
 
-//! create a line defined by two points
-class Line : public Shape
+class DynamicCircle : public Shape
 {
-
 public:
-    const static ShapeType shapeClass = LCLASS;
-    const static ShapeType shapeType = LINE;
 
-    Line(Shape *obj1, Shape *obj2);
+    const static ShapeType shapeClass = CCLASS;
+    const static ShapeType shapeType = DYNCIRCLE;
+
+    DynamicCircle(Shape *obj1, Shape *obj2);
 
     virtual void updateItem() override;
 
@@ -23,5 +22,6 @@ public:
 
 private:
     Shape *p1, *p2;
-    QLineF line;
+    qreal radius, diameter;
+    // add more private variables
 };

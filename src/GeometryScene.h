@@ -2,6 +2,7 @@
 
 #include <QGraphicsScene>
 #include <QGraphicsItem>
+#include <QStatusBar>
 #include <QList>
 #include <QMap>
 #include "ShapeList.h"
@@ -12,15 +13,20 @@ public:
     GeometryScene(QObject *parent = nullptr);
 
     void setNextNewShape(Shape::ShapeType aType, const QString &objList);
+    inline void setStatusBar(QStatusBar *value) { statusBar = value; }
 
 protected:
-    void mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent);
+    void mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent) override;
 
 private:
-    QString selectionString;
-    int selectionStringIndex;
+    void updateStatusMessage();
+    bool isCreationMode();
+
+    QStatusBar       *statusBar = nullptr;
+    QString          selectionString;
+    int              selectionStringIndex;
     Shape::ShapeType nextShapeType;
-    QList<Shape *> selectionList;
+    QList<Shape *>   selectionList;
     QMap<QChar, int> objTypeMap;
-    bool addPointMode;
+    bool             addPointMode;
 };

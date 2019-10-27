@@ -3,14 +3,14 @@
 #include "Shape.h"
 
 //! create a line defined by two points
-class Line : public Shape
+class PointAtCircle : public Shape
 {
 
 public:
-    const static ShapeType shapeClass = LCLASS;
-    const static ShapeType shapeType = LINE;
+    const static ShapeType shapeClass = PCLASS;
+    const static ShapeType shapeType = POINT;
 
-    Line(Shape *obj1, Shape *obj2);
+    PointAtCircle(Shape *obj1, Shape *obj2);
 
     virtual void updateItem() override;
 
@@ -23,5 +23,7 @@ public:
 
 private:
     Shape *p1, *p2;
-    QLineF line;
+    qreal radius;
+    QLineF radiusLine;
+
 };

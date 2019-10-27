@@ -30,6 +30,10 @@ private slots:
 
     void on_actionLine_triggered();
 
+    void on_actionPointAtCircle_triggered();
+
+    void on_actionDynamicCircle_triggered();
+
 private:
     Ui::MainWindow *ui;
     QGridLayout *layout;

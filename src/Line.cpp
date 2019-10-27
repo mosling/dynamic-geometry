@@ -1,4 +1,5 @@
 #include "Line.h"
+#include "GeometryFunction.h"
 
 Line::Line(Shape *obj1, Shape *obj2)
 {
@@ -31,12 +32,7 @@ void Line::updateItem()
 
 QRectF Line::boundingRect() const
 {
-    qreal left = std::min(line.x1(), line.x2());
-    qreal top = std::min(line.y1(), line.y2());
-    qreal width = std::abs((line.x1() - line.x2()));
-    qreal height = std::abs((line.y1() - line.y2()));
-
-    return QRectF(left, top, width, height);
+    return GeometryFunction::getBoundingBox(line);
 }
 
 void Line::paint(QPainter *painter,

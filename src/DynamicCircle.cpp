@@ -2,8 +2,9 @@
 #include <QDebug>
 #include "GeometryFunction.h"
 #include "Circle.h"
+#include "DynamicCircle.h"
 
-Circle::Circle(Shape *obj1, Shape *obj2)
+DynamicCircle::DynamicCircle(Shape *obj1, Shape *obj2)
 {
     p1 = obj1;
     p2 = obj2;
@@ -13,28 +14,27 @@ Circle::Circle(Shape *obj1, Shape *obj2)
 
     setFlags(ItemIsSelectable);
 
-    setToolTip("Circle");
+    setToolTip("DynamicCircle");
     updateItem();
 }
 
-void Circle::updateItem()
+void DynamicCircle::updateItem()
 {
     QPointF a = p1->scenePos();
-    QPointF b = p2->scenePos();
 
     setPos(a);
-    radius = GeometryFunction::distance(a, b);
+    radius = (dynamic_cast<Circle *>(p2))->getRadius();
     diameter = 2 * radius;
 
     prepareGeometryChange();
 }
 
-QRectF Circle::boundingRect() const
+QRectF DynamicCircle::boundingRect() const
 {
     return QRectF(-radius, -radius, diameter, diameter);
 }
 
-void Circle::paint(QPainter *painter,
+void DynamicCircle::paint(QPainter *painter,
                    const QStyleOptionGraphicsItem *option,
                    QWidget *widget)
 {
@@ -56,10 +56,10 @@ void Circle::paint(QPainter *painter,
     painter->drawPath(shape());
 }
 
-QPainterPath Circle::shape() const
+QPainterPath DynamicCircle::shape() const
 {
     QPainterPath path;
-    qreal id = diameter - 4.0;
+    qreal id = diameter - 2.0;
     qreal ir = id / 2.0;
     path.addEllipse(-radius, -radius, diameter, diameter);
     path.addEllipse(-ir, -ir, id, id);

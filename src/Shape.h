@@ -7,12 +7,15 @@
 class Shape : public QGraphicsItem
 {
 public:
-    enum ShapeType { TCLASS,  LCLASS,    PCLASS,  CCLASS,  OBJECT,    MULTIFIG,  POINT,   SEGMENT,   LINE,
-                     RAY,     CIRCLE,    TEXT,    CIRCINT, INTPOINT,  MIDPOINT,  PONLINE, MIRPOINT,  DISTPOINT,
-                     MIDLINE, PLUMBLINE, PARLINE, HORLINE, ALGORITHM, DYNCIRCLE };
+    enum ShapeType { TCLASS,  LCLASS,    PCLASS,   CCLASS,  OBJECT,    MULTIFIG,
+                     POINT,   SEGMENT,   LINE,     RAY,     CIRCLE,    TEXT,
+                     CIRCINT, INTPOINT,  MIDPOINT, PONLINE, MIRPOINT,  DISTPOINT,
+                     MIDLINE, PLUMBLINE, PARLINE,  HORLINE, ALGORITHM, DYNCIRCLE,
+                     STOPPER
+                   };
 
     explicit Shape();
-    ~Shape();
+    ~Shape() override;
 
     virtual ShapeType getTypeClass() const { return OBJECT; }
     virtual ShapeType getType() const { return OBJECT; }
@@ -31,7 +34,7 @@ public:
 
 protected:
     QVariant itemChange(GraphicsItemChange change,
-                        const QVariant &value);
+                        const QVariant &value) override;
 
 private:
     QSet<Shape *> *dependentShapeSet;

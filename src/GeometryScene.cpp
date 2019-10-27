@@ -10,7 +10,6 @@
 GeometryScene::GeometryScene(QObject *parent)
     : QGraphicsScene(parent), selectionString("")
 {
-    objTypeMap['P'] = Shape::PCLASS;
 }
 
 void GeometryScene::setNextNewShape(Shape::ShapeType aType, const QString &objList)
@@ -20,10 +19,7 @@ void GeometryScene::setNextNewShape(Shape::ShapeType aType, const QString &objLi
     selectionString = objList;
     selectionStringIndex = 0;
 
-    qDebug() << "set selection list for "
-             << Shape::typeName[aType]
-             << " to "
-             << selectionString;
+    updateStatusMessage();
 }
 
 void GeometryScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
@@ -33,15 +29,12 @@ void GeometryScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
                mouseEvent->scenePos().y(),
                QTransform());
 
-    if (selectionString != nullptr && 0 < selectionString.length())
+    if (isCreationMode())
     {
-        qDebug() << "Wait for " << selectionString << "[" << selectionStringIndex << "]";
-
         if (Shape::POINT == nextShapeType)
         {
             // points are the only independent elements
             Point *skp = new Point();
-            qDebug() << "  --> adding new point";
             skp->setPos(mouseEvent->scenePos());
             skp->setZValue(-10);
             this->addItem(skp);
@@ -56,18 +49,16 @@ void GeometryScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
             {
                 Shape::ShapeType fClass = f->getTypeClass();
                 qDebug() << "  item class" << Shape::typeName[fClass];
-                bool match = false;
-                QMapIterator<QChar, int> it(objTypeMap);
-                while (it.hasNext() && !match)
+                for (qint32 i = 0; i < Shape::ShapeType::STOPPER; ++i)
                 {
-                    it.next();
-                    if (it.key() == selectionString.at(selectionStringIndex) && it.value() == fClass)
+                    if (Shape::typeShortname[i] == selectionString.at(selectionStringIndex)
+                            && i == fClass)
                     {
-                        qDebug() << "  found matching type " << it.key();
-                        match = true;
+                        qDebug() << "  found matching type " << Shape::typeName[i];
                         selectionList.append(f);
-                        pItemUnderMouse->setSelected(!pItemUnderMouse->isSelected());
+                        pItemUnderMouse->setSelected(true);
                         selectionStringIndex++;
+                        break;
                     }
                 }
                 if (selectionStringIndex == selectionString.length())
@@ -85,17 +76,54 @@ void GeometryScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
                     case Shape::LINE:
                         mp = new Line(selectionList.at(0), selectionList.at(1));
                         break;
+                    case Shape::DISTPOINT:
+                        mp = new PointAtCircle(selectionList.at(0), selectionList.at(1));
+                        break;
+                    case Shape::DYNCIRCLE:
+                        mp = new DynamicCircle(selectionList.at(0), selectionList.at(1));
+                        break;
                     default:
                         break;
                     }
                     this->addItem(mp);
+
                     // and setup for the next geometry object
                     setNextNewShape(nextShapeType, selectionString);
                 }
+                else
+                {
+                    updateStatusMessage();
+                }
+
                 return;
             }
         }
     }
 
     QGraphicsScene::mousePressEvent(mouseEvent);
+}
+
+void GeometryScene::updateStatusMessage()
+{
+    if (nullptr != statusBar)
+    {
+        if (isCreationMode())
+        {
+        QString message = QString("Creating '%1' wait for %2[%3]")
+                .arg(Shape::typeName[nextShapeType])
+                .arg(selectionString)
+                .arg(selectionStringIndex);
+
+        statusBar->showMessage(message);
+        }
+        else
+        {
+            statusBar->showMessage("Dynamic Geometry Manipulation Mode");
+        }
+    }
+}
+
+bool GeometryScene::isCreationMode()
+{
+    return selectionString != nullptr && 0 < selectionString.length();
 }
