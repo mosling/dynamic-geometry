@@ -88,3 +88,13 @@ void MainWindow::on_actionDynamicCircle_triggered()
 {
     scene->setNextNewShape(Shape::DYNCIRCLE , "PC");
 }
+
+void MainWindow::on_actionRemove_triggered()
+{
+    scene->removeSelectedShapes();
+}
+
+void MainWindow::on_actionVisible_triggered()
+{
+    scene->changeVisibility();
+}

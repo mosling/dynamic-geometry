@@ -2,7 +2,7 @@
 
 #include "Shape.h"
 
-class DynamicCircle : public Shape
+class DynamicCircle : public Circle
 {
 public:
 
@@ -13,15 +13,6 @@ public:
 
     virtual void updateItem() override;
 
-    QRectF boundingRect() const override;
-    void paint(QPainter *painter,
-               const QStyleOptionGraphicsItem *option,
-               QWidget *widget) override;
-
-    QPainterPath shape() const override;
-
 private:
     Shape *p1, *p2;
-    qreal radius, diameter;
-    // add more private variables
 };

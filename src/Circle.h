@@ -13,7 +13,6 @@ public:
 
     virtual void updateItem() override;
 
-    qreal inline getRadius() { return radius; }
     QRectF boundingRect() const override;
     void paint(QPainter *painter,
                const QStyleOptionGraphicsItem *option,
@@ -21,8 +20,12 @@ public:
 
     QPainterPath shape() const override;
 
+    qreal getRadius() const { return radius; }
+    void setRadius(qreal value) { radius = value; diameter = 2.0 * radius; }
+
 private:
-    qreal radius, diameter;
+    qreal radius;
+    qreal diameter;
     bool lastBox;
     Shape *p1, *p2;
 };

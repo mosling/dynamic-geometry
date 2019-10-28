@@ -36,7 +36,7 @@
      <x>0</x>
      <y>0</y>
      <width>621</width>
-     <height>20</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuElements">
@@ -51,6 +51,8 @@
     <addaction name="actionPunkt"/>
     <addaction name="actionStrecke"/>
     <addaction name="actionKreis"/>
+    <addaction name="actionVisible"/>
+    <addaction name="actionRemove"/>
    </widget>
    <addaction name="menuElements"/>
   </widget>
@@ -171,6 +173,16 @@
    </property>
    <property name="text">
     <string>DynamicCircle</string>
+   </property>
+  </action>
+  <action name="actionRemove">
+   <property name="text">
+    <string>Remove</string>
+   </property>
+  </action>
+  <action name="actionVisible">
+   <property name="text">
+    <string>Visible</string>
    </property>
   </action>
  </widget>

@@ -13,6 +13,8 @@ public:
     GeometryScene(QObject *parent = nullptr);
 
     void setNextNewShape(Shape::ShapeType aType, const QString &objList);
+    void removeSelectedShapes();
+    void changeVisibility();
     inline void setStatusBar(QStatusBar *value) { statusBar = value; }
 
 protected:

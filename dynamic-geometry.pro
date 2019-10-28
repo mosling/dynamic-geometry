@@ -1,17 +1,6 @@
-CONFIG         += c++17
-QT             += core gui widgets
-
-TARGET         = dynamic-geometry
-TEMPLATE       = app
-
-
-SOURCES        += $$files(src/*.cpp, true)
-HEADERS        += $$files(src/*.h, true)
-
-INCLUDEPATH    *= src/
-FORMS          += ui/mainwindow.ui
-
+INCLUDEPATH    += src/
 RESOURCES      += resources/icons.qrc
 
-DISTFILES += \
-    src/Shape.h.template
+TEMPLATE        = subdirs
+CONFIG         +=ordered
+SUBDIRS         = src

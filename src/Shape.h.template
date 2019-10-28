@@ -2,7 +2,6 @@
 
 #include "Shape.h"
 
-//! create a line defined by two points
 class NEWSHAPE : public Shape
 {
 
@@ -22,6 +21,6 @@ public:
     QPainterPath shape() const override;
 
 private:
-    Shape *p1, *p2;
+    Shape *shape1, *shape2;
     // add more private variables
 };

@@ -25,30 +25,17 @@ void Point::paint(QPainter *painter,
     (void)option;
     (void)widget;
 
-    QRectF rec = boundingRect();
-    QBrush brush(Qt::blue);
-    QPen pen(brush, 2, Qt::SolidLine);
+    showBoundingRect(painter);
 
+    QBrush brush(Qt::green);
     if (isSelected())
     {
         brush.setColor(Qt::red);
     }
-    else
-    {
-        brush.setColor(Qt::green);
-    }
 
     painter->setBrush(brush);
-    painter->setPen(pen);
-    painter->drawEllipse(rec);
-
-    if (getWithBoundingBox())
-    {
-        QBrush b(Qt::lightGray);
-        QPen p(b, 2, Qt::DashLine);
-        painter->setPen(p);
-        painter->drawRect(boundingRect());
-    }
+    painter->setPen(QPen(Qt::blue, 2, Qt::SolidLine));
+    painter->drawEllipse(boundingRect());
 }
 
 void Point::setRadius(qreal aRadius)

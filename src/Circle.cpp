@@ -41,18 +41,23 @@ void Circle::paint(QPainter *painter,
     (void)option;
     (void)widget;
 
-    if (getWithBoundingBox())
+    showBoundingRect(painter);
+
+    if (isConstructionHelper())
     {
-        QBrush brush(Qt::lightGray);
-        QPen pen(brush, 2, Qt::DashLine);
-        painter->setPen(pen);
-        painter->drawRect(boundingRect());
-        painter->drawEllipse(boundingRect());
+        painter->setPen(QPen(Qt::darkCyan, 1, Qt::SolidLine,
+                             Qt::FlatCap, Qt::MiterJoin));
+        painter->setBrush(Qt::cyan);
+    }
+    else
+    {
+        painter->setPen(QPen(getConstructionColor(), 1, Qt::SolidLine,
+                             Qt::FlatCap, Qt::MiterJoin));
+        painter->setBrush(getConstructionColor());
     }
 
-    painter->setPen(QPen(QColor(79, 106, 25), 1, Qt::SolidLine,
-                         Qt::FlatCap, Qt::MiterJoin));
-    painter->setBrush(QColor(122, 163, 39));
+    painter->setRenderHint(QPainter::Antialiasing, true);
+    painter->setRenderHint(QPainter::SmoothPixmapTransform, true);
     painter->drawPath(shape());
 }
 

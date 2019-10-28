@@ -11,6 +11,7 @@ public:
 
     void wheelEvent ( QWheelEvent * event ) override;
 
+
 private slots:
     void scalingTime(qreal x);
     void animFinished();

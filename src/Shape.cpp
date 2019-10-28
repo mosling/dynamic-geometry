@@ -14,7 +14,10 @@ const QChar Shape::typeShortname[]={'T', 'L', 'P', 'C', 'O', 'M', 'p', 's',
                          'a', '_' };
 
 Shape::Shape()
-    : QGraphicsItem()
+    : QGraphicsItem(),
+      withBoundingBox(true),
+      constructionHelper(true),
+      constructionColor(QColor("#f0f0f0"))
 {
 	setFlag(ItemIsMovable);
 	setFlag(ItemIsSelectable);
@@ -39,7 +42,18 @@ Shape::~Shape()
 	}
 
 	delete dependentShapeSet;
-	delete baseShapeSet;
+    delete baseShapeSet;
+}
+
+void Shape::showBoundingRect(QPainter *painter)
+{
+    if (getWithBoundingBox())
+    {
+        QBrush brush(Qt::lightGray);
+        QPen pen(brush, 2, Qt::DashLine);
+        painter->setPen(pen);
+        painter->drawRect(boundingRect());
+    }
 }
 
 void Shape::addDependentShape(Shape *child)

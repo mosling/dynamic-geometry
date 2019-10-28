@@ -21,6 +21,7 @@ public:
     virtual ShapeType getType() const { return OBJECT; }
 
     virtual void updateItem() = 0;
+    void showBoundingRect(QPainter *painter);
 
     void addDependentShape(Shape *child);
     void removeDependentShape(Shape *child);
@@ -32,6 +33,12 @@ public:
     bool getWithBoundingBox() const { return withBoundingBox; }
     void setWithBoundingBox(bool value) { withBoundingBox = value; }
 
+    bool isConstructionHelper() const { return constructionHelper; }
+    void setConstructionHelper(bool value) { constructionHelper = value; }
+
+    QColor getConstructionColor() const { return constructionColor; }
+    void setConstructionColor(QColor value) { constructionColor = value; }
+
 protected:
     QVariant itemChange(GraphicsItemChange change,
                         const QVariant &value) override;
@@ -41,4 +48,6 @@ private:
     QSet<Shape *> *baseShapeSet;
     Shape *removingChild;
     bool withBoundingBox;
+    bool constructionHelper;
+    QColor constructionColor;
 };

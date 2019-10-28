@@ -22,12 +22,29 @@ void GeometryScene::setNextNewShape(Shape::ShapeType aType, const QString &objLi
     updateStatusMessage();
 }
 
+void GeometryScene::removeSelectedShapes()
+{
+    foreach (QGraphicsItem *item, this->selectedItems())
+    {
+        delete item;
+    }
+}
+
+void GeometryScene::changeVisibility()
+{
+    foreach (QGraphicsItem *item, this->selectedItems())
+    {
+        Shape *s = dynamic_cast<Shape *>(item);
+        s->setConstructionHelper(!s->isConstructionHelper());
+    }
+}
+
 void GeometryScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
 {
     QGraphicsItem *pItemUnderMouse =
-        itemAt(mouseEvent->scenePos().x(),
-               mouseEvent->scenePos().y(),
-               QTransform());
+            itemAt(mouseEvent->scenePos().x(),
+                   mouseEvent->scenePos().y(),
+                   QTransform());
 
     if (isCreationMode())
     {
@@ -109,12 +126,12 @@ void GeometryScene::updateStatusMessage()
     {
         if (isCreationMode())
         {
-        QString message = QString("Creating '%1' wait for %2[%3]")
-                .arg(Shape::typeName[nextShapeType])
-                .arg(selectionString)
-                .arg(selectionStringIndex);
+            QString message = QString("Creating '%1' wait for %2[%3]")
+                    .arg(Shape::typeName[nextShapeType])
+                    .arg(selectionString)
+                    .arg(selectionStringIndex);
 
-        statusBar->showMessage(message);
+            statusBar->showMessage(message);
         }
         else
         {
