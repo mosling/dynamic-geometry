@@ -38,6 +38,10 @@ private slots:
 
     void on_actionVisible_triggered();
 
+    void on_actionTracker_triggered();
+
+    void on_actionCleanTracker_triggered();
+
 private:
     Ui::MainWindow *ui;
     QGridLayout *layout;

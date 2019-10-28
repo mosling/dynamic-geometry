@@ -9,6 +9,7 @@ SOURCES += \
     Circle.cpp \
     GeometryFunction.cpp \
     GeometryView.cpp \
+    PointPath.cpp \
     main.cpp \
     MidPoint.cpp \
     PointAtCircle.cpp \
@@ -28,6 +29,8 @@ HEADERS += \
     DynamicCircle.h \
     GeometryScene.h \
     Line.h \
+    PointPath.h \
+    ShapeList.h \
     mainwindow.h \
     Point.h \
     Shape.h

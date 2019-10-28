@@ -99,6 +99,9 @@ void GeometryScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
                     case Shape::DYNCIRCLE:
                         mp = new DynamicCircle(selectionList.at(0), selectionList.at(1));
                         break;
+                    case Shape::POINTPATH:
+                        mp = new PointPath(selectionList.at(0));
+                        break;
                     default:
                         break;
                     }

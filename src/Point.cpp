@@ -1,5 +1,6 @@
 ﻿#include <QDebug>
 #include "Point.h"
+#include "PointPath.h"
 
 Point::Point()
     : Shape(),
@@ -11,6 +12,17 @@ Point::Point()
 void Point::updateItem()
 {
     // nothing to do for points
+}
+
+void Point::cleanTracker()
+{
+    foreach( Shape *s, getDependentShapeSet())
+    {
+        if (Shape::POINTPATH == s->getType())
+        {
+            dynamic_cast<PointPath *>(s)->cleanTracker();
+        }
+    }
 }
 
 QRectF Point::boundingRect() const

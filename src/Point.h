@@ -14,6 +14,7 @@ public:
     ShapeType getType() const override { return POINT; }
 
     virtual void updateItem() override;
+    void cleanTracker();
 
     QRectF boundingRect() const override;
     void paint(QPainter *painter,

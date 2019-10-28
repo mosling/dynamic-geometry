@@ -8,5 +8,6 @@
 #include "Line.h"
 #include "PointAtCircle.h"
 #include "DynamicCircle.h"
+#include "PointPath.h"
 
 #endif // ALLFIGURES_H

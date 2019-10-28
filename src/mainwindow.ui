@@ -53,6 +53,7 @@
     <addaction name="actionKreis"/>
     <addaction name="actionVisible"/>
     <addaction name="actionRemove"/>
+    <addaction name="actionCleanTracker"/>
    </widget>
    <addaction name="menuElements"/>
   </widget>
@@ -85,6 +86,7 @@
    <addaction name="actionLine"/>
    <addaction name="actionPointAtCircle"/>
    <addaction name="actionDynamicCircle"/>
+   <addaction name="actionTracker"/>
   </widget>
   <action name="actionPunkt">
    <property name="checkable">
@@ -183,6 +185,16 @@
   <action name="actionVisible">
    <property name="text">
     <string>Visible</string>
+   </property>
+  </action>
+  <action name="actionTracker">
+   <property name="text">
+    <string>Tracker</string>
+   </property>
+  </action>
+  <action name="actionCleanTracker">
+   <property name="text">
+    <string>CleanTracker</string>
    </property>
   </action>
  </widget>

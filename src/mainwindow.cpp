@@ -18,6 +18,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
     ui->actionLine->setActionGroup(actionGroup);
     ui->actionPointAtCircle->setActionGroup(actionGroup);
     ui->actionDynamicCircle->setActionGroup(actionGroup);
+    ui->actionTracker->setActionGroup(actionGroup);
 
     // create the scene and connect to view
     scene = new GeometryScene();
@@ -97,4 +98,23 @@ void MainWindow::on_actionRemove_triggered()
 void MainWindow::on_actionVisible_triggered()
 {
     scene->changeVisibility();
+}
+
+void MainWindow::on_actionTracker_triggered()
+{
+    scene->setNextNewShape(Shape::POINTPATH, "P");
+}
+
+void MainWindow::on_actionCleanTracker_triggered()
+{
+    foreach (QGraphicsItem *item, scene->selectedItems())
+    {
+        Shape *s = dynamic_cast<Shape *>(item);
+        if (s->getType() == Shape::POINT)
+        {
+            QRectF r = s->boundingRect();
+            dynamic_cast<Point *>(s)->cleanTracker();
+            scene->update(r);
+        }
+    }
 }
