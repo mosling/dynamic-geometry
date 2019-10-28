@@ -6,11 +6,11 @@
 class MidPoint : public Point
 {
 public:
-    MidPoint(Shape *obj1, Shape *obj2);
-    ~MidPoint() override = default;
-
     ShapeType getTypeClass() const override { return PCLASS; }
     ShapeType getType() const override { return MIDPOINT; }
+
+    MidPoint(Shape *obj1, Shape *obj2);
+    ~MidPoint() override = default;
 
     virtual void updateItem() override;
 

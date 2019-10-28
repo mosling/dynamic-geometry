@@ -1,5 +1,4 @@
-﻿#ifndef GRAPHICSPOINTITEM_H
-#define GRAPHICSPOINTITEM_H
+﻿#pragma once
 
 #include <QSet>
 #include "Shape.h"
@@ -14,7 +13,6 @@ public:
     ShapeType getType() const override { return POINT; }
 
     virtual void updateItem() override;
-    void cleanTracker();
 
     QRectF boundingRect() const override;
     void paint(QPainter *painter,
@@ -27,4 +25,3 @@ private:
     qreal radius;
 };
 
-#endif // QGRAPHICSPOINTITEM_H

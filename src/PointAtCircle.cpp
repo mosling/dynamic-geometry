@@ -28,6 +28,7 @@ void PointAtCircle::updateItem()
     radiusLine.setLength(radius);
 
     p2->setPos(radiusLine.p2());
+
     prepareGeometryChange();
 }
 

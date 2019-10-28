@@ -6,13 +6,12 @@ class PointPath : public Shape
 {
 
 public:
-    const static ShapeType shapeClass = OBJECT;
-    const static ShapeType shapeType = POINTPATH;
+    ShapeType getTypeClass() const override { return OBJECT; }
+    ShapeType getType() const override { return POINTPATH; }
 
     PointPath(Shape *obj1);
 
     virtual void updateItem() override;
-    void cleanTracker();
 
     QRectF boundingRect() const override;
     void paint(QPainter *painter,

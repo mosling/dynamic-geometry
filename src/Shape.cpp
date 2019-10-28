@@ -10,8 +10,8 @@ const QList<QString> Shape::typeName = {"class-of-texts", "class-of-lines",
                       "dyn-circle", "path-of-points"};
 
 const QList<QChar> Shape::typeShortname = {'T', 'L', 'P', 'C', 'O', 'M', 'p', 's',
-                         'l', 'r', 'c', 't', '_', 'i', '_', '_', '_', 'd', '_', '_', '_', 'h',
-                         'a', '_', '_' };
+                         'l', 'r', 'c', 't', '_', 'i', '_', '_', '_', 'd', '_',
+                         '_', '_', 'h', 'a', '_', '_' };
 
 Shape::Shape()
     : QGraphicsItem(),

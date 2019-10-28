@@ -1,3 +1,4 @@
+#include <QDebug>
 #include "PointPath.h"
 #include "GeometryFunction.h"
 
@@ -24,13 +25,6 @@ void PointPath::updateItem()
     prepareGeometryChange();
 }
 
-void PointPath::cleanTracker()
-{
-    pointPath.clear();
-    pointPath.append(shape1->scenePos());
-    updateItem();
-}
-
 QRectF PointPath::boundingRect() const
 {
     return shape().boundingRect();
@@ -44,9 +38,9 @@ void PointPath::paint(QPainter *painter,
     (void)widget;
 
     // use given painter to draw the object
-    painter->setPen(QPen(QColor(79, 106, 25), 3, Qt::SolidLine,
+    painter->setPen(QPen(this->isSelected() ? Qt::red : Qt::blue, 3, Qt::SolidLine,
                          Qt::FlatCap, Qt::MiterJoin));
-    painter->setBrush(QColor(122, 163, 39));
+
     painter->setRenderHint(QPainter::Antialiasing, true);
     painter->setRenderHint(QPainter::SmoothPixmapTransform, true);
     QPointF lp;

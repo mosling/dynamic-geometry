@@ -22,14 +22,6 @@ void GeometryScene::setNextNewShape(Shape::ShapeType aType, const QString &objLi
     updateStatusMessage();
 }
 
-void GeometryScene::removeSelectedShapes()
-{
-    foreach (QGraphicsItem *item, this->selectedItems())
-    {
-        delete item;
-    }
-}
-
 void GeometryScene::changeVisibility()
 {
     foreach (QGraphicsItem *item, this->selectedItems())

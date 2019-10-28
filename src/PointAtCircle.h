@@ -7,8 +7,8 @@ class PointAtCircle : public Shape
 {
 
 public:
-    const static ShapeType shapeClass = PCLASS;
-    const static ShapeType shapeType = POINT;
+    ShapeType getTypeClass() const override { return PCLASS; }
+    ShapeType getType() const override { return POINT; }
 
     PointAtCircle(Shape *obj1, Shape *obj2);
 

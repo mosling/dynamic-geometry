@@ -5,7 +5,7 @@
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
-                                          ui(new Ui::MainWindow)
+    ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
 
@@ -92,7 +92,13 @@ void MainWindow::on_actionDynamicCircle_triggered()
 
 void MainWindow::on_actionRemove_triggered()
 {
-    scene->removeSelectedShapes();
+    foreach (QGraphicsItem *item, scene->selectedItems())
+    {
+        scene->removeItem(item);
+        delete item;
+    }
+
+    this->update();
 }
 
 void MainWindow::on_actionVisible_triggered()
@@ -109,12 +115,23 @@ void MainWindow::on_actionCleanTracker_triggered()
 {
     foreach (QGraphicsItem *item, scene->selectedItems())
     {
-        Shape *s = dynamic_cast<Shape *>(item);
-        if (s->getType() == Shape::POINT)
+        Shape *shape = dynamic_cast<Shape *>(item);
+        if (shape->getType() == Shape::POINT)
         {
-            QRectF r = s->boundingRect();
-            dynamic_cast<Point *>(s)->cleanTracker();
-            scene->update(r);
+            foreach( Shape *s, shape->getDependentShapeSet())
+            {
+                if (Shape::POINTPATH == s->getType())
+                {
+                    qDebug() << "clean tracker " << s->toolTip();
+                    scene->removeItem(s);
+                    qDebug() << "remove object";
+                    delete(s);
+                    qDebug() << "add new item";
+                    scene->addItem(new PointPath(shape));
+                }
+            }
         }
     }
+
+    scene->update();
 }

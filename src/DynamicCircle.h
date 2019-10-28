@@ -1,15 +1,15 @@
 #pragma once
 
-#include "Shape.h"
+#include "Circle.h"
 
 class DynamicCircle : public Circle
 {
 public:
 
-    const static ShapeType shapeClass = CCLASS;
-    const static ShapeType shapeType = DYNCIRCLE;
-
     DynamicCircle(Shape *obj1, Shape *obj2);
+
+    ShapeType getTypeClass() const override { return CCLASS; }
+    ShapeType getType() const override { return DYNCIRCLE; }
 
     virtual void updateItem() override;
 

@@ -1,5 +1,5 @@
 CONFIG         += c++17
-QT             += core gui widgets
+QT             += core gui widgets svg
 
 TARGET         = dynamic-geometry
 TEMPLATE       = app
