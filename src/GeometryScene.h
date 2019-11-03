@@ -22,6 +22,7 @@ protected:
 private:
     void updateStatusMessage();
     bool isCreationMode();
+    void createAndAddItem(Shape::ShapeType type);
 
     QStatusBar       *statusBar = nullptr;
     QString          selectionString;

@@ -14,14 +14,10 @@ public:
 
     virtual void updateItem() override;
 
-    QRectF boundingRect() const override;
     void paint(QPainter *painter,
                const QStyleOptionGraphicsItem *option,
                QWidget *widget) override;
-    QPainterPath shape() const override;
 
 private:
     Shape *p1, *p2;
-    qreal w, h;
-    QPointF l1, l2;
 };

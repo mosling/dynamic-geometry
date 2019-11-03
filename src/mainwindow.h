@@ -42,6 +42,10 @@ private slots:
 
     void on_actionCleanTracker_triggered();
 
+    void on_actionMidPoint_triggered();
+
+    void on_actionCircleIntersection_triggered();
+
 private:
     Ui::MainWindow *ui;
     QGridLayout *layout;

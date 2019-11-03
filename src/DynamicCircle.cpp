@@ -13,8 +13,6 @@ DynamicCircle::DynamicCircle(Shape *obj1, Shape *obj2)
     p1->addDependentShape(this);
     p2->addDependentShape(this);
 
-    setFlags(ItemIsSelectable);
-
     setToolTip("DynamicCircle");
     updateItem();
 }

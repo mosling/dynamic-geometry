@@ -9,7 +9,6 @@ PointPath::PointPath(Shape *obj1)
     shape1->addDependentShape(this);
 
     pointPath.append(shape1->scenePos());
-    setFlags(ItemIsSelectable);
 
     setToolTip("PointPath");
     updateItem();
@@ -37,12 +36,8 @@ void PointPath::paint(QPainter *painter,
     (void)option;
     (void)widget;
 
-    // use given painter to draw the object
-    painter->setPen(QPen(this->isSelected() ? Qt::red : Qt::blue, 3, Qt::SolidLine,
-                         Qt::FlatCap, Qt::MiterJoin));
+    setOptions(painter);
 
-    painter->setRenderHint(QPainter::Antialiasing, true);
-    painter->setRenderHint(QPainter::SmoothPixmapTransform, true);
     QPointF lp;
     bool firstPoint = true;
     foreach (QPointF p, pointPath)

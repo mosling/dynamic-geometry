@@ -19,6 +19,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
     ui->actionPointAtCircle->setActionGroup(actionGroup);
     ui->actionDynamicCircle->setActionGroup(actionGroup);
     ui->actionTracker->setActionGroup(actionGroup);
+    ui->actionMidPoint->setActionGroup(actionGroup);
+    ui->actionCircleIntersection->setActionGroup(actionGroup);
 
     // create the scene and connect to view
     scene = new GeometryScene();
@@ -62,7 +64,7 @@ void MainWindow::on_actionPunkt_triggered()
 
 void MainWindow::on_actionStrecke_triggered()
 {
-    scene->setNextNewShape(Shape::MIDPOINT, "PP");
+    scene->setNextNewShape(Shape::SEGMENT, "PP");
 }
 
 void MainWindow::on_actionKreis_triggered()
@@ -134,4 +136,14 @@ void MainWindow::on_actionCleanTracker_triggered()
     }
 
     scene->update();
+}
+
+void MainWindow::on_actionMidPoint_triggered()
+{
+    scene->setNextNewShape(Shape::MIDPOINT, "PP");
+}
+
+void MainWindow::on_actionCircleIntersection_triggered()
+{
+    scene->setNextNewShape(Shape::CIRCINT, "CC");
 }

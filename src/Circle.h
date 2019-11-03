@@ -21,11 +21,16 @@ public:
     QPainterPath shape() const override;
 
     qreal getRadius() const { return radius; }
+    QPointF getCenter() const { return centerPoint->scenePos(); }
+
+protected:
+
     void setRadius(qreal value) { radius = value; diameter = 2.0 * radius; }
 
 private:
+
     qreal radius;
     qreal diameter;
     bool lastBox;
-    Shape *p1, *p2;
+    Shape *centerPoint, *borderPoint;
 };

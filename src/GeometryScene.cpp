@@ -27,7 +27,7 @@ void GeometryScene::changeVisibility()
     foreach (QGraphicsItem *item, this->selectedItems())
     {
         Shape *s = dynamic_cast<Shape *>(item);
-        s->setConstructionHelper(!s->isConstructionHelper());
+        s->setHelper(!s->helper());
     }
 }
 
@@ -45,7 +45,7 @@ void GeometryScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
             // points are the only independent elements
             Point *skp = new Point();
             skp->setPos(mouseEvent->scenePos());
-            skp->setZValue(-10);
+            skp->setZValue(10);
             this->addItem(skp);
         }
         else if (pItemUnderMouse &&
@@ -63,56 +63,102 @@ void GeometryScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
                     if (Shape::typeShortname[i] == selectionString.at(selectionStringIndex)
                             && i == fClass)
                     {
-                        qDebug() << "  found matching type " << Shape::typeName[i];
-                        selectionList.append(f);
-                        pItemUnderMouse->setSelected(true);
-                        selectionStringIndex++;
-                        break;
+                        if (selectionList.contains(f))
+                        {
+                            qDebug() << "same shape fount ... ignoring";
+                        }
+                        else
+                        {
+                            qDebug() << "  found matching type " << Shape::typeName[i];
+                            selectionList.append(f);
+                            pItemUnderMouse->setSelected(true);
+                            selectionStringIndex++;
+                            break;
+                        }
                     }
                 }
                 if (selectionStringIndex == selectionString.length())
                 {
-                    qDebug() << "  --> construct new object";
-                    Shape *mp = nullptr;
-                    switch (nextShapeType)
-                    {
-                    case Shape::MIDPOINT:
-                        mp = new MidPoint(selectionList.at(0), selectionList.at(1));
-                        break;
-                    case Shape::CIRCLE:
-                        mp = new Circle(selectionList.at(0), selectionList.at(1));
-                        break;
-                    case Shape::LINE:
-                        mp = new Line(selectionList.at(0), selectionList.at(1));
-                        break;
-                    case Shape::DISTPOINT:
-                        mp = new PointAtCircle(selectionList.at(0), selectionList.at(1));
-                        break;
-                    case Shape::DYNCIRCLE:
-                        mp = new DynamicCircle(selectionList.at(0), selectionList.at(1));
-                        break;
-                    case Shape::POINTPATH:
-                        mp = new PointPath(selectionList.at(0));
-                        break;
-                    default:
-                        break;
-                    }
-                    this->addItem(mp);
-
-                    // and setup for the next geometry object
+                    createAndAddItem(nextShapeType);
                     setNextNewShape(nextShapeType, selectionString);
                 }
-                else
-                {
-                    updateStatusMessage();
-                }
-
-                return;
             }
+        }
+        else if (pItemUnderMouse)
+        {
+            qDebug() << pItemUnderMouse->toolTip() << " isn't selectable.";
         }
     }
 
+    updateStatusMessage();
     QGraphicsScene::mousePressEvent(mouseEvent);
+}
+
+
+void GeometryScene::createAndAddItem(Shape::ShapeType type)
+{
+    qDebug() << "Create Shape " << Shape::typeName[type]
+                << " with " << selectionList.size() << " elements";
+
+    if (Shape::MIDPOINT == type)
+    {
+        this->addItem(new MidPoint(selectionList.at(0), selectionList.at(1)));
+        Segment *l = new Segment(selectionList.at(0), selectionList.at(1));
+        l->setHelper(true);
+        l->setZValue(-10);
+        this->addItem(l);
+    }
+    else if (Shape::CIRCLE == type)
+    {
+        this->addItem(new Circle(selectionList.at(0), selectionList.at(1)));
+    }
+    else if (Shape::SEGMENT == type)
+    {
+        this->addItem(new Segment(selectionList.at(0), selectionList.at(1)));
+    }
+    else if (Shape::LINE == type)
+    {
+        this->addItem(new Line(selectionList.at(0), selectionList.at(1)));
+    }
+    else if (Shape::DISTPOINT == type)
+    {
+        this->addItem(new PointAtCircle(selectionList.at(0), selectionList.at(1)));
+        Circle *c = new Circle(selectionList.at(0), selectionList.at(1));
+        c->setHelper(true);
+        this->addItem(c);
+    }
+    else if (Shape::DYNCIRCLE == type)
+    {
+        this->addItem(new DynamicCircle(selectionList.at(0), selectionList.at(1)));
+    }
+    else if (Shape::POINTPATH == type)
+    {
+        this->addItem(new PointPath(selectionList.at(0)));
+    }
+    else if (Shape::CIRCINT == type)
+    {
+        CircleIntersection *ci = new CircleIntersection(selectionList.at(0), selectionList.at(1));
+
+        Point *p1 = new Point();
+        p1->setFlag(QGraphicsItem::ItemIsMovable, false);
+        p1->setVisible(false);
+
+        Point *p2 = new Point();
+        p2->setFlag(QGraphicsItem::ItemIsMovable, false);
+        p2->setVisible(false);
+
+        ci->addDependentShape(p1);
+        ci->addDependentShape(p2);
+
+        this->addItem(ci);
+        this->addItem(p1);
+        this->addItem(p2);
+
+        ci->updateItem();
+    }
+    else {
+        qDebug() << "no implementation for item " << nextShapeType;
+    }
 }
 
 void GeometryScene::updateStatusMessage()

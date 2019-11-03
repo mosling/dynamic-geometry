@@ -81,10 +81,12 @@
    <addaction name="separator"/>
    <addaction name="actionSelect"/>
    <addaction name="actionPunkt"/>
+   <addaction name="actionMidPoint"/>
    <addaction name="actionStrecke"/>
    <addaction name="actionKreis"/>
    <addaction name="actionLine"/>
    <addaction name="actionPointAtCircle"/>
+   <addaction name="actionCircleIntersection"/>
    <addaction name="actionDynamicCircle"/>
    <addaction name="actionTracker"/>
   </widget>
@@ -198,6 +200,22 @@
   <action name="actionCleanTracker">
    <property name="text">
     <string>CleanTracker</string>
+   </property>
+  </action>
+  <action name="actionMidPoint">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>MidPoint</string>
+   </property>
+  </action>
+  <action name="actionCircleIntersection">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>CircleIntersection</string>
    </property>
   </action>
  </widget>

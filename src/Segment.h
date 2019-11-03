@@ -2,14 +2,15 @@
 
 #include "Shape.h"
 
-class NEWSHAPE : public Shape
+//! create a line defined by two points
+class Segment : public Shape
 {
 
 public:
-    const static ShapeType shapeClass = NEWSHAPE-CLASS;
-    const static ShapeType shapeType = NEWSHAPE-TYPE;
+    const static ShapeType shapeClass = LCLASS;
+    const static ShapeType shapeType = SEGMENT;
 
-    NEWSHAPE(Shape *obj1, Shape *obj2);
+    Segment(Shape *obj1, Shape *obj2);
 
     virtual void updateItem() override;
 
@@ -21,6 +22,6 @@ public:
     QPainterPath shape() const override;
 
 private:
-    Shape *shape1, *shape2;
-    // add more private variables
+    Shape *p1, *p2;
+    QLineF line;
 };

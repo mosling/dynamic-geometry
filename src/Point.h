@@ -18,6 +18,7 @@ public:
     void paint(QPainter *painter,
                const QStyleOptionGraphicsItem *option,
                QWidget *widget) override;
+    QPainterPath shape() const override;
 
     void setRadius(qreal aRadius);
 

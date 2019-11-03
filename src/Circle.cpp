@@ -5,13 +5,14 @@
 
 Circle::Circle(Shape *obj1, Shape *obj2)
 {
-    p1 = obj1;
-    p2 = obj2;
+    getOption().setPenColor(Qt::darkCyan);
+    getOption().setBrushColor(Qt::cyan);
 
-    p1->addDependentShape(this);
-    p2->addDependentShape(this);
+    centerPoint = obj1;
+    borderPoint = obj2;
 
-    setFlags(ItemIsSelectable);
+    centerPoint->addDependentShape(this);
+    borderPoint->addDependentShape(this);
 
     setToolTip("Circle");
     updateItem();
@@ -19,11 +20,10 @@ Circle::Circle(Shape *obj1, Shape *obj2)
 
 void Circle::updateItem()
 {
-    QPointF a = p1->scenePos();
-    QPointF b = p2->scenePos();
+    setVisible(allBaseShapesVisible());
 
-    setPos(a);
-    radius = GeometryFunction::distance(a, b);
+    setPos(centerPoint->scenePos());
+    radius = GeometryFunction::distance(centerPoint->scenePos(), borderPoint->scenePos());
     diameter = 2 * radius;
 
     prepareGeometryChange();
@@ -42,29 +42,15 @@ void Circle::paint(QPainter *painter,
     (void)widget;
 
     showBoundingRect(painter);
+    setOptions(painter);
 
-    if (isConstructionHelper())
-    {
-        painter->setPen(QPen(Qt::darkCyan, 1, Qt::SolidLine,
-                             Qt::FlatCap, Qt::MiterJoin));
-        painter->setBrush(Qt::cyan);
-    }
-    else
-    {
-        painter->setPen(QPen(getConstructionColor(), 1, Qt::SolidLine,
-                             Qt::FlatCap, Qt::MiterJoin));
-        painter->setBrush(getConstructionColor());
-    }
-
-    painter->setRenderHint(QPainter::Antialiasing, true);
-    painter->setRenderHint(QPainter::SmoothPixmapTransform, true);
     painter->drawPath(shape());
 }
 
 QPainterPath Circle::shape() const
 {
     QPainterPath path;
-    qreal id = diameter - 4.0;
+    qreal id = diameter - 6.0;
     qreal ir = id / 2.0;
     path.addEllipse(-radius, -radius, diameter, diameter);
     path.addEllipse(-ir, -ir, id, id);

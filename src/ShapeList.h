@@ -1,13 +1,15 @@
-﻿#ifndef ALLFIGURES_H
-#define ALLFIGURES_H
+﻿#pragma once
 
-#include "Shape.h"
+#include "Circle.h"
+#include "CircleIntersection.h"
+
+#include "DynamicCircle.h"
 #include "Point.h"
 #include "MidPoint.h"
-#include "Circle.h"
+
+#include "Segment.h"
 #include "Line.h"
 #include "PointAtCircle.h"
-#include "DynamicCircle.h"
+
 #include "PointPath.h"
 
-#endif // ALLFIGURES_H

@@ -3,11 +3,14 @@
 #include <QGraphicsItem>
 #include <QPainter>
 #include <QString>
-#include <QSet>
+#include <QList>
+
+#include "ShapeOption.h"
 
 class Shape : public QGraphicsItem
 {
 public:
+
     enum ShapeType { TCLASS,    LCLASS,    PCLASS,   CCLASS,  OBJECT,    MULTIFIG,
                      POINT,     SEGMENT,   LINE,     RAY,     CIRCLE,    TEXT,
                      CIRCINT,   INTPOINT,  MIDPOINT, PONLINE, MIRPOINT,  DISTPOINT,
@@ -15,42 +18,65 @@ public:
                      POINTPATH, STOPPER
                    };
 
+    Q_PROPERTY(bool boundingBox READ boundingBox WRITE setboundingBox)
+    Q_PROPERTY(bool helper READ helper WRITE setHelper)
+
     explicit Shape();
     ~Shape() override;
 
     virtual ShapeType getTypeClass() const { return OBJECT; }
     virtual ShapeType getType() const { return OBJECT; }
-
     virtual void updateItem() = 0;
+
+    bool allBaseShapesVisible();
     void showBoundingRect(QPainter *painter);
+    void setOptions(QPainter *painter);
 
     void addDependentShape(Shape *child);
     void removeDependentShape(Shape *child);
-    void addBaseShape(Shape *parent);
 
     const static QList<QString> typeName;
     const static QList<QChar> typeShortname;
 
-    bool getWithBoundingBox() const { return withBoundingBox; }
-    void setWithBoundingBox(bool value) { withBoundingBox = value; }
+    QList<Shape *> getDependentShapeSet() const { return dependentShapeSet; }
 
-    bool isConstructionHelper() const { return constructionHelper; }
-    void setConstructionHelper(bool value) { constructionHelper = value; }
+    bool helper() const
+    {
+        return m_helper;
+    }
 
-    QColor getConstructionColor() const { return constructionColor; }
-    void setConstructionColor(QColor value) { constructionColor = value; }
+    bool boundingBox() const
+    {
+        return m_boundingBox;
+    }
 
-    QSet<Shape *> getDependentShapeSet() const { return dependentShapeSet; }
+    ShapeOption &getOption()
+    {
+        return option;
+    }
+
+public slots:
+    void setHelper(bool helper)
+    {
+        m_helper = helper;
+        this->setFlag(ItemIsSelectable, !m_helper);
+    }
+
+    void setboundingBox(bool boundingBox)
+    {
+        m_boundingBox = boundingBox;
+    }
 
 protected:
     QVariant itemChange(GraphicsItemChange change,
                         const QVariant &value) override;
+    QList<Shape *> dependentShapeSet;
 
 private:
-    QSet<Shape *> dependentShapeSet;
-    QSet<Shape *> baseShapeSet;
+    QList<Shape *> baseShapeSet;
     Shape *removingChild;
-    bool withBoundingBox;
-    bool constructionHelper;
-    QColor constructionColor;
+
+    bool m_boundingBox;
+    bool m_helper;
+    ShapeOption option;
 };

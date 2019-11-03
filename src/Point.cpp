@@ -6,6 +6,8 @@ Point::Point()
     : Shape(),
       radius(8)
 {
+    setFlag(ItemIsMovable, true);
+
     setToolTip("Point2D");
 }
 
@@ -27,19 +29,19 @@ void Point::paint(QPainter *painter,
     (void)widget;
 
     showBoundingRect(painter);
+    setOptions(painter);
 
-    QBrush brush(Qt::green);
-    if (isSelected())
-    {
-        brush.setColor(Qt::red);
-    }
-
-    painter->setBrush(brush);
-    painter->setPen(QPen(Qt::blue, 2, Qt::SolidLine));
     painter->drawEllipse(boundingRect());
 }
 
 void Point::setRadius(qreal aRadius)
 {
     radius = aRadius;
+}
+
+QPainterPath Point::shape() const
+{
+    QPainterPath path;
+    path.addRect(boundingRect());
+    return path;
 }

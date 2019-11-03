@@ -5,6 +5,9 @@
 
 PointAtCircle::PointAtCircle(Shape *obj1, Shape *obj2)
 {
+    getOption().setPenColor(QColor(79, 106, 25));
+    getOption().setBrushColor(QColor(122, 163, 39));
+
     p1 = obj1;
     p2 = obj2;
 
@@ -12,8 +15,6 @@ PointAtCircle::PointAtCircle(Shape *obj1, Shape *obj2)
 
     p1->addDependentShape(this);
     p2->addDependentShape(this);
-
-    setFlags(ItemIsSelectable);
 
     setToolTip("DistancePoint");
     updateItem();
@@ -44,11 +45,8 @@ void PointAtCircle::paint(QPainter *painter,
     (void)option;
     (void)widget;
 
-    painter->setPen(QPen(QColor(79, 106, 25), 3, Qt::SolidLine,
-                         Qt::FlatCap, Qt::MiterJoin));
-    painter->setBrush(QColor(122, 163, 39));
-    painter->setRenderHint(QPainter::Antialiasing, true);
-    painter->setRenderHint(QPainter::SmoothPixmapTransform, true);
+    showBoundingRect(painter);
+    setOptions(painter);
     painter->drawLine(radiusLine);
 }
 

@@ -7,9 +7,12 @@ TEMPLATE       = app
 
 SOURCES += \
     Circle.cpp \
+    CircleIntersection.cpp \
     GeometryFunction.cpp \
     GeometryView.cpp \
     PointPath.cpp \
+    Segment.cpp \
+    ShapeOption.cpp \
     main.cpp \
     MidPoint.cpp \
     PointAtCircle.cpp \
@@ -22,6 +25,7 @@ SOURCES += \
 
 HEADERS += \
     Circle.h \
+    CircleIntersection.h \
     GeometryFunction.h \
     GeometryView.h \
     MidPoint.h \
@@ -30,13 +34,13 @@ HEADERS += \
     GeometryScene.h \
     Line.h \
     PointPath.h \
+    Segment.h \
     ShapeList.h \
+    ShapeOption.h \
     mainwindow.h \
     Point.h \
     Shape.h
 
 FORMS += mainwindow.ui
 
-OTHER_FILES += \
-    Shape.h.template \
-    Shape.cpp.template
+OTHER_FILES +=
