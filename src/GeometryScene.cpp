@@ -7,8 +7,8 @@
 #include <QMapIterator>
 #include "GeometryScene.h"
 
-GeometryScene::GeometryScene(QObject *parent)
-    : QGraphicsScene(parent), selectionString("")
+GeometryScene::GeometryScene(QObject *parent) : QGraphicsScene(parent),
+                                                selectionString("")
 {
 }
 
@@ -34,9 +34,9 @@ void GeometryScene::changeVisibility()
 void GeometryScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
 {
     QGraphicsItem *pItemUnderMouse =
-            itemAt(mouseEvent->scenePos().x(),
-                   mouseEvent->scenePos().y(),
-                   QTransform());
+        itemAt(mouseEvent->scenePos().x(),
+               mouseEvent->scenePos().y(),
+               QTransform());
 
     if (isCreationMode())
     {
@@ -60,8 +60,7 @@ void GeometryScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
                 qDebug() << "  item class" << Shape::typeName[fClass];
                 for (qint32 i = 0; i < Shape::ShapeType::STOPPER; ++i)
                 {
-                    if (Shape::typeShortname[i] == selectionString.at(selectionStringIndex)
-                            && i == fClass)
+                    if (Shape::typeShortname[i] == selectionString.at(selectionStringIndex) && i == fClass)
                     {
                         if (selectionList.contains(f))
                         {
@@ -94,11 +93,10 @@ void GeometryScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
     QGraphicsScene::mousePressEvent(mouseEvent);
 }
 
-
 void GeometryScene::createAndAddItem(Shape::ShapeType type)
 {
     qDebug() << "Create Shape " << Shape::typeName[type]
-                << " with " << selectionList.size() << " elements";
+             << " with " << selectionList.size() << " elements";
 
     if (Shape::MIDPOINT == type)
     {
@@ -156,7 +154,8 @@ void GeometryScene::createAndAddItem(Shape::ShapeType type)
 
         ci->updateItem();
     }
-    else {
+    else
+    {
         qDebug() << "no implementation for item " << nextShapeType;
     }
 }
@@ -168,9 +167,9 @@ void GeometryScene::updateStatusMessage()
         if (isCreationMode())
         {
             QString message = QString("Creating '%1' wait for %2[%3]")
-                    .arg(Shape::typeName[nextShapeType])
-                    .arg(selectionString)
-                    .arg(selectionStringIndex);
+                                  .arg(Shape::typeName[nextShapeType])
+                                  .arg(selectionString)
+                                  .arg(selectionStringIndex);
 
             statusBar->showMessage(message);
         }

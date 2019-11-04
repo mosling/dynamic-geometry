@@ -69,8 +69,8 @@ void Shape::showBoundingRect(QPainter *painter)
 
 void Shape::setOptions(QPainter *painter)
 {
-    QColor pcol = isSelected() ? option.selectedColor() : option.penColor();
-    QColor bcol = isSelected() ? option.selectedColor() : option.brushColor();
+    QColor pcol = helper() ? Qt::lightGray : (isSelected() ? option.selectedColor() : option.penColor());
+    QColor bcol = helper() ? Qt::lightGray : (isSelected() ? option.selectedColor() : option.brushColor());
     qreal lw = helper() ? 1.0 : option.penWidth();
 
     painter->setBrush(QBrush(bcol));
@@ -78,8 +78,6 @@ void Shape::setOptions(QPainter *painter)
 
     painter->setRenderHint(QPainter::Antialiasing, true);
     painter->setRenderHint(QPainter::SmoothPixmapTransform, true);
-
-    painter->setOpacity(helper() ? 0.4 : 1.0);
 }
 
 void Shape::addDependentShape(Shape *child)

@@ -45,12 +45,12 @@ QRectF CircleIntersection::boundingRect() const
                                                 dependentShapeSet.at(1)->scenePos());
     }
 
-    return QRectF(0,0,0,0);
+    return QRectF(0, 0, 0, 0);
 }
 
 void CircleIntersection::paint(QPainter *painter,
-                   const QStyleOptionGraphicsItem *option,
-                   QWidget *widget)
+                               const QStyleOptionGraphicsItem *option,
+                               QWidget *widget)
 {
     (void)painter;
     (void)option;

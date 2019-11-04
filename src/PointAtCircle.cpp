@@ -22,6 +22,8 @@ PointAtCircle::PointAtCircle(Shape *obj1, Shape *obj2)
 
 void PointAtCircle::updateItem()
 {
+    setVisible(allBaseShapesVisible());
+
     QPointF a = p1->scenePos();
     QPointF b = p2->scenePos();
 

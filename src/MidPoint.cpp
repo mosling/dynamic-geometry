@@ -16,6 +16,8 @@ MidPoint::MidPoint(Shape *obj1, Shape *obj2)
 
 void MidPoint::updateItem()
 {
+    setVisible(allBaseShapesVisible());
+
     QPointF a = p1->scenePos();
     QPointF b = p2->scenePos();
 
