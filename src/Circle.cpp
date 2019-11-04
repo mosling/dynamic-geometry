@@ -14,8 +14,7 @@ Circle::Circle(Shape *obj1, Shape *obj2)
     centerPoint->addDependentShape(this);
     borderPoint->addDependentShape(this);
 
-    setToolTip("Circle");
-    updateItem();
+    setToolTip(QStringLiteral("Circle"));
 }
 
 void Circle::updateItem()

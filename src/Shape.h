@@ -18,8 +18,8 @@ public:
                      POINTPATH, STOPPER
                    };
 
-    Q_PROPERTY(bool boundingBox READ boundingBox WRITE setboundingBox)
-    Q_PROPERTY(bool helper READ helper WRITE setHelper)
+    Q_PROPERTY(bool boundingBox READ boundingBox WRITE setboundingBox NOTIFY boundingBoxChanged )
+    Q_PROPERTY(bool helper READ helper WRITE setHelper NOTIFY helperChanged )
 
     explicit Shape();
     ~Shape() override;
@@ -52,7 +52,7 @@ public:
 
     ShapeOption &getOption()
     {
-        return option;
+        return m_option;
     }
 
 public slots:
@@ -67,6 +67,11 @@ public slots:
         m_boundingBox = boundingBox;
     }
 
+signals:
+    void boundingBoxChanged(bool boundingBox);
+
+    void helperChanged(bool helper);
+
 protected:
     QVariant itemChange(GraphicsItemChange change,
                         const QVariant &value) override;
@@ -78,5 +83,5 @@ private:
 
     bool m_boundingBox;
     bool m_helper;
-    ShapeOption option;
+    ShapeOption m_option;
 };

@@ -14,7 +14,6 @@ DynamicCircle::DynamicCircle(Shape *obj1, Shape *obj2)
     p2->addDependentShape(this);
 
     setToolTip("DynamicCircle");
-    updateItem();
 }
 
 void DynamicCircle::updateItem()

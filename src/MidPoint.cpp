@@ -11,7 +11,6 @@ MidPoint::MidPoint(Shape *obj1, Shape *obj2)
     p2->addDependentShape(this);
 
     setToolTip("MidPoint");
-    updateItem();
 }
 
 void MidPoint::updateItem()

@@ -14,7 +14,6 @@ Segment::Segment(Shape *obj1, Shape *obj2)
     p2->addDependentShape(this);
 
     setToolTip("Segment");
-    updateItem();
 }
 
 void Segment::updateItem()

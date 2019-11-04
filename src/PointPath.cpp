@@ -11,7 +11,6 @@ PointPath::PointPath(Shape *obj1)
     pointPath.append(shape1->scenePos());
 
     setToolTip("PointPath");
-    updateItem();
 }
 
 void PointPath::updateItem()

@@ -9,15 +9,15 @@ class ShapeOption : public QObject
     Q_OBJECT
 
 public:
-    ShapeOption();
+    ShapeOption(QObject *parent);
 
-    Q_PROPERTY(QColor helperColor READ helperColor WRITE setHelperColor )
-    Q_PROPERTY(QColor penColor READ penColor WRITE setPenColor )
-    Q_PROPERTY(QColor brushColor READ brushColor WRITE setBrushColor )
-    Q_PROPERTY(QColor selectedColor READ selectedColor WRITE setSelectedColor )
+    Q_PROPERTY(QColor helperColor READ helperColor WRITE setHelperColor NOTIFY helperChanged )
+    Q_PROPERTY(QColor penColor READ penColor WRITE setPenColor NOTIFY penColorChanged )
+    Q_PROPERTY(QColor brushColor READ brushColor WRITE setBrushColor NOTIFY brushColorChanged )
+    Q_PROPERTY(QColor selectedColor READ selectedColor WRITE setSelectedColor NOTIFY selectedColorChanged )
 
-    Q_PROPERTY(qreal penWidth READ penWidth WRITE setPenWidth )
-    Q_PROPERTY(Qt::PenStyle penStyle READ penStyle WRITE setPenStyle )
+    Q_PROPERTY(qreal penWidth READ penWidth WRITE setPenWidth NOTIFY penWidthChanged )
+    Q_PROPERTY(Qt::PenStyle penStyle READ penStyle WRITE setPenStyle NOTIFY penStyleChanged )
 
     QColor helperColor() const
     {
@@ -80,6 +80,19 @@ public slots:
     {
         m_penStyle = penStyle;
     }
+
+signals:
+    void helperChanged(QColor helperColor);
+
+    void penColorChanged(QColor penColor);
+
+    void brushColorChanged(QColor brushColor);
+
+    void selectedColorChanged(QColor selectedColor);
+
+    void penWidthChanged(qreal penWidth);
+
+    void penStyleChanged(Qt::PenStyle penStyle);
 
 private:
     QColor m_helperColor;

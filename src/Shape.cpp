@@ -17,7 +17,6 @@ Shape::Shape()
     : QGraphicsItem(),
       m_boundingBox(false),
       m_helper(false)
-
 {
     Q_ASSERT(STOPPER == typeName.length() );
     Q_ASSERT(STOPPER == typeShortname.length() );

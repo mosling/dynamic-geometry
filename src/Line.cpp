@@ -15,7 +15,6 @@ Line::Line(Shape *obj1, Shape *obj2)
     p2->addDependentShape(this);
 
     setToolTip("Line");
-    updateItem();
 }
 
 void Line::updateItem()

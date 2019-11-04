@@ -17,7 +17,6 @@ PointAtCircle::PointAtCircle(Shape *obj1, Shape *obj2)
     p2->addDependentShape(this);
 
     setToolTip("DistancePoint");
-    updateItem();
 }
 
 void PointAtCircle::updateItem()
