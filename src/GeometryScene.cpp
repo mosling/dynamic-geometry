@@ -4,11 +4,14 @@
 #include <QDebug>
 #include <QGraphicsSceneMouseEvent>
 #include <QGraphicsItem>
+#include <QGraphicsView>
 #include <QMapIterator>
+
 #include "GeometryScene.h"
 
-GeometryScene::GeometryScene(QObject *parent) : QGraphicsScene(parent),
-                                                selectionString("")
+GeometryScene::GeometryScene(QObject *parent)
+    : QGraphicsScene(parent),
+      selectionString("")
 {
 }
 
@@ -34,9 +37,9 @@ void GeometryScene::changeVisibility()
 void GeometryScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
 {
     QGraphicsItem *pItemUnderMouse =
-        itemAt(mouseEvent->scenePos().x(),
-               mouseEvent->scenePos().y(),
-               QTransform());
+            itemAt(mouseEvent->scenePos().x(),
+                   mouseEvent->scenePos().y(),
+                   QTransform());
 
     if (isCreationMode())
     {
@@ -96,42 +99,42 @@ void GeometryScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
 void GeometryScene::createAndAddItem(Shape::ShapeType type)
 {
     qDebug() << "Create Shape " << Shape::typeName[type]
-             << " with " << selectionList.size() << " elements";
+                << " with " << selectionList.size() << " elements";
 
     if (Shape::MIDPOINT == type)
     {
-        this->addItem(new MidPoint(selectionList.at(0), selectionList.at(1)));
+        addNewItemAndDisplay(new MidPoint(selectionList.at(0), selectionList.at(1)));
         Segment *l = new Segment(selectionList.at(0), selectionList.at(1));
         l->setHelper(true);
         l->setZValue(-10);
-        this->addItem(l);
+        addNewItemAndDisplay(l);
     }
     else if (Shape::CIRCLE == type)
     {
-        this->addItem(new Circle(selectionList.at(0), selectionList.at(1)));
+        addNewItemAndDisplay(new Circle(selectionList.at(0), selectionList.at(1)));
     }
     else if (Shape::SEGMENT == type)
     {
-        this->addItem(new Segment(selectionList.at(0), selectionList.at(1)));
+        addNewItemAndDisplay(new Segment(selectionList.at(0), selectionList.at(1)));
     }
     else if (Shape::LINE == type)
     {
-        this->addItem(new Line(selectionList.at(0), selectionList.at(1)));
+        addNewItemAndDisplay(new Line(selectionList.at(0), selectionList.at(1)));
     }
     else if (Shape::DISTPOINT == type)
     {
-        this->addItem(new PointAtCircle(selectionList.at(0), selectionList.at(1)));
+        addNewItemAndDisplay(new PointAtCircle(selectionList.at(0), selectionList.at(1)));
         Circle *c = new Circle(selectionList.at(0), selectionList.at(1));
         c->setHelper(true);
-        this->addItem(c);
+        addNewItemAndDisplay(c);
     }
     else if (Shape::DYNCIRCLE == type)
     {
-        this->addItem(new DynamicCircle(selectionList.at(0), selectionList.at(1)));
+        addNewItemAndDisplay(new DynamicCircle(selectionList.at(0), selectionList.at(1)));
     }
     else if (Shape::POINTPATH == type)
     {
-        this->addItem(new PointPath(selectionList.at(0)));
+        addNewItemAndDisplay(new PointPath(selectionList.at(0)));
     }
     else if (Shape::CIRCINT == type)
     {
@@ -148,16 +151,20 @@ void GeometryScene::createAndAddItem(Shape::ShapeType type)
         ci->addDependentShape(p1);
         ci->addDependentShape(p2);
 
-        this->addItem(ci);
-        this->addItem(p1);
-        this->addItem(p2);
-
-        ci->updateItem();
+        addNewItemAndDisplay(ci);
+        addNewItemAndDisplay(p1);
+        addNewItemAndDisplay(p2);
     }
     else
     {
         qDebug() << "no implementation for item " << nextShapeType;
     }
+}
+
+void GeometryScene::addNewItemAndDisplay(Shape *shape)
+{
+    this->addItem(shape);
+    shape->updateItem();
 }
 
 void GeometryScene::updateStatusMessage()
@@ -167,9 +174,9 @@ void GeometryScene::updateStatusMessage()
         if (isCreationMode())
         {
             QString message = QString("Creating '%1' wait for %2[%3]")
-                                  .arg(Shape::typeName[nextShapeType])
-                                  .arg(selectionString)
-                                  .arg(selectionStringIndex);
+                    .arg(Shape::typeName[nextShapeType])
+                    .arg(selectionString)
+                    .arg(selectionStringIndex);
 
             statusBar->showMessage(message);
         }

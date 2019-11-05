@@ -5,6 +5,8 @@
 //! Creates a circle by two points defining the radius of the circle
 class Circle : public Shape
 {
+    Q_OBJECT
+
 public:
     Circle(Shape *obj1, Shape *obj2);
 

@@ -5,6 +5,9 @@
 
 class MidPoint : public Point
 {
+private:
+    Q_OBJECT
+
 public:
     ShapeType getTypeClass() const override { return PCLASS; }
     ShapeType getType() const override { return MIDPOINT; }

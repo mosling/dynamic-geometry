@@ -1,6 +1,6 @@
 #pragma once
 
-#include <QList>
+#include <QVector>
 #include <QPointF>
 #include <QRectF>
 #include <QLineF>
@@ -14,5 +14,5 @@ public:
     static QRectF getBoundingBox(const QPointF &p1, const QPointF &p2);
     static inline QRectF getBoundingBox(const QLineF &l) { return getBoundingBox(l.p1(), l.p2()); }
 
-    static QList<QPointF> circleIntersection(const Circle &c1, const Circle &c2);
+    static QVector<QPointF> circleIntersection(const Circle &c1, const Circle &c2);
 };

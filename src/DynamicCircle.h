@@ -4,6 +4,9 @@
 
 class DynamicCircle : public Circle
 {
+private:
+    Q_OBJECT
+
 public:
 
     DynamicCircle(Shape *obj1, Shape *obj2);

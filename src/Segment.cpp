@@ -13,7 +13,7 @@ Segment::Segment(Shape *obj1, Shape *obj2)
     p1->addDependentShape(this);
     p2->addDependentShape(this);
 
-    setToolTip("Segment");
+    setToolTip(QStringLiteral("Segment"));
 }
 
 void Segment::updateItem()

@@ -4,6 +4,7 @@
 
 class GeometryView : public QGraphicsView
 {
+private:
     Q_OBJECT
 
 public:
@@ -12,7 +13,7 @@ public:
     void wheelEvent ( QWheelEvent * event ) override;
 
 
-private slots:
+private Q_SLOTS:
     void scalingTime(qreal x);
     void animFinished();
 

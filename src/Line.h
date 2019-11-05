@@ -5,6 +5,8 @@
 //! create a line defined by two points
 class Line : public Shape
 {
+private:
+    Q_OBJECT
 
 public:
     const static ShapeType shapeClass = LCLASS;

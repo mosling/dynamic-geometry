@@ -9,6 +9,9 @@
 
 class GeometryScene : public QGraphicsScene
 {
+private:
+    Q_OBJECT
+
 public:
     GeometryScene(QObject *parent = nullptr);
 
@@ -23,6 +26,7 @@ private:
     void updateStatusMessage();
     bool isCreationMode();
     void createAndAddItem(Shape::ShapeType type);
+    void addNewItemAndDisplay(Shape *shape);
 
     QStatusBar       *statusBar = nullptr;
     QString          selectionString;

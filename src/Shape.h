@@ -7,8 +7,14 @@
 
 #include "ShapeOption.h"
 
-class Shape : public QGraphicsItem
+class Shape : public QObject, public QGraphicsItem
 {
+    Q_OBJECT
+    Q_INTERFACES(QGraphicsItem)
+
+    Q_PROPERTY(bool boundingBox READ boundingBox WRITE setboundingBox NOTIFY boundingBoxChanged )
+    Q_PROPERTY(bool helper READ helper WRITE setHelper NOTIFY helperChanged )
+
 public:
 
     enum ShapeType { TCLASS,    LCLASS,    PCLASS,   CCLASS,  OBJECT,    MULTIFIG,
@@ -18,8 +24,6 @@ public:
                      POINTPATH, STOPPER
                    };
 
-    Q_PROPERTY(bool boundingBox READ boundingBox WRITE setboundingBox NOTIFY boundingBoxChanged )
-    Q_PROPERTY(bool helper READ helper WRITE setHelper NOTIFY helperChanged )
 
     explicit Shape();
     ~Shape() override;
@@ -55,7 +59,7 @@ public:
         return m_option;
     }
 
-public slots:
+public Q_SLOTS:
     void setHelper(bool helper)
     {
         m_helper = helper;
@@ -67,7 +71,7 @@ public slots:
         m_boundingBox = boundingBox;
     }
 
-signals:
+Q_SIGNALS:
     void boundingBoxChanged(bool boundingBox);
 
     void helperChanged(bool helper);

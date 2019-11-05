@@ -1,15 +1,17 @@
-#ifndef SHAPEOPTION_H
-#define SHAPEOPTION_H
+#pragma once
 
 #include <QObject>
 #include <QColor>
 
-class ShapeOption : public QObject
+class ShapeOption : QObject
 {
+private:
     Q_OBJECT
 
 public:
-    ShapeOption(QObject *parent);
+    ShapeOption();
+    virtual ~ShapeOption();
+
 
     Q_PROPERTY(QColor helperColor READ helperColor WRITE setHelperColor NOTIFY helperChanged )
     Q_PROPERTY(QColor penColor READ penColor WRITE setPenColor NOTIFY penColorChanged )
@@ -49,8 +51,7 @@ public:
         return m_penStyle;
     }
 
-public slots:
-
+public Q_SLOTS:
     void setHelperColor(QColor helperColor)
     {
         m_helperColor = helperColor;
@@ -81,7 +82,7 @@ public slots:
         m_penStyle = penStyle;
     }
 
-signals:
+Q_SIGNALS:
     void helperChanged(QColor helperColor);
 
     void penColorChanged(QColor penColor);
@@ -102,5 +103,3 @@ private:
     qreal m_penWidth;
     Qt::PenStyle m_penStyle;
 };
-
-#endif // SHAPEOPTION_H

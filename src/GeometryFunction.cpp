@@ -16,9 +16,9 @@ QRectF GeometryFunction::getBoundingBox(const QPointF &p1, const QPointF &p2)
     return QRectF(left, top, width, height);
 }
 
-QList<QPointF> GeometryFunction::circleIntersection(const Circle &c1, const Circle &c2)
+QVector<QPointF> GeometryFunction::circleIntersection(const Circle &c1, const Circle &c2)
 {
-    QList<QPointF> rl;
+    QVector<QPointF> rl;
 
     QPointF p1 = c1.getCenter();
     QPointF p2 = c2.getCenter();

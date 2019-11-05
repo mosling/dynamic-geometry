@@ -14,12 +14,12 @@ CircleIntersection::CircleIntersection(Shape *obj1, Shape *obj2)
     c1->addDependentShape(this);
     c2->addDependentShape(this);
 
-    setToolTip("Circle Intersection");
+    setToolTip(QStringLiteral("Circle Intersection"));
 }
 
 void CircleIntersection::updateItem()
 {
-    QList<QPointF> l = GeometryFunction::circleIntersection(*c1, *c2);
+    QVector<QPointF> l = GeometryFunction::circleIntersection(*c1, *c2);
 
     for (int i = 0; i < dependentShapeSet.size(); ++i)
     {

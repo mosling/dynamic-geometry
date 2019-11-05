@@ -5,6 +5,9 @@
 
 class Point : public Shape
 {
+private:
+    Q_OBJECT
+
 public:
     explicit Point();
     ~Point() override = default;

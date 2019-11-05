@@ -4,6 +4,8 @@
 
 class PointPath : public Shape
 {
+private:
+    Q_OBJECT
 
 public:
     ShapeType getTypeClass() const override { return OBJECT; }

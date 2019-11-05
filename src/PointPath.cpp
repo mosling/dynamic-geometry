@@ -39,7 +39,7 @@ void PointPath::paint(QPainter *painter,
 
     QPointF lp;
     bool firstPoint = true;
-    foreach (QPointF p, pointPath)
+    Q_FOREACH (QPointF p, pointPath)
     {
         painter->drawPoint(p);
         if (!firstPoint)
@@ -57,7 +57,7 @@ void PointPath::paint(QPainter *painter,
 QPainterPath PointPath::shape() const
 {
     QPainterPath path;
-    foreach( QPointF p, pointPath)
+    Q_FOREACH( QPointF p, pointPath)
     {
         path.moveTo(p);
     }

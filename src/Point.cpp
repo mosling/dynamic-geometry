@@ -13,7 +13,6 @@ Point::Point()
 
 void Point::updateItem()
 {
-    setVisible(allBaseShapesVisible());
 }
 
 QRectF Point::boundingRect() const

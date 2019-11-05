@@ -30,12 +30,12 @@ Shape::Shape()
 
 Shape::~Shape()
 {
-    foreach (Shape *p, baseShapeSet)
+    Q_FOREACH (Shape *p, baseShapeSet)
     {
         p->removeDependentShape(this);
     }
 
-    foreach (Shape *c, dependentShapeSet)
+    Q_FOREACH (Shape *c, dependentShapeSet)
     {
         delete c;
     }
@@ -47,7 +47,7 @@ Shape::~Shape()
 bool Shape::allBaseShapesVisible()
 {
     bool v = true;
-    foreach (Shape *shape, baseShapeSet)
+    Q_FOREACH (Shape *shape, baseShapeSet)
     {
         v = v && shape->isVisible();
     }
@@ -68,12 +68,12 @@ void Shape::showBoundingRect(QPainter *painter)
 
 void Shape::setOptions(QPainter *painter)
 {
-    QColor pcol = helper() ? Qt::lightGray : (isSelected() ? option.selectedColor() : option.penColor());
-    QColor bcol = helper() ? Qt::lightGray : (isSelected() ? option.selectedColor() : option.brushColor());
-    qreal lw = helper() ? 1.0 : option.penWidth();
+    QColor pcol = helper() ? Qt::lightGray : (isSelected() ? getOption().selectedColor() : getOption().penColor());
+    QColor bcol = helper() ? Qt::lightGray : (isSelected() ? getOption().selectedColor() : getOption().brushColor());
+    qreal lw = helper() ? 1.0 : getOption().penWidth();
 
     painter->setBrush(QBrush(bcol));
-    painter->setPen(QPen(pcol, lw, option.penStyle(), Qt::FlatCap, Qt::MiterJoin));
+    painter->setPen(QPen(pcol, lw, getOption().penStyle(), Qt::FlatCap, Qt::MiterJoin));
 
     painter->setRenderHint(QPainter::Antialiasing, true);
     painter->setRenderHint(QPainter::SmoothPixmapTransform, true);
@@ -98,7 +98,7 @@ QVariant Shape::itemChange(QGraphicsItem::GraphicsItemChange change,
 {
     if (change == ItemPositionHasChanged && scene())
     {
-        foreach (Shape *shape, dependentShapeSet)
+        Q_FOREACH (Shape *shape, dependentShapeSet)
         {
             shape->updateItem();
             shape->itemChange(change, value);

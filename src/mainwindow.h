@@ -19,7 +19,7 @@ public:
     ~MainWindow();
     virtual void resizeEvent(QResizeEvent *event);
 
-private slots:
+private:
     void on_actionPunkt_triggered();
 
     void on_actionStrecke_triggered();

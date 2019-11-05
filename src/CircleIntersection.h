@@ -6,6 +6,8 @@
 //! create a line defined by two points
 class CircleIntersection : public Shape
 {
+private:
+    Q_OBJECT
 
 public:
     const static ShapeType shapeClass = POINT;

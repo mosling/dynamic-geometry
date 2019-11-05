@@ -34,7 +34,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
     ui->graphicsView->setMinimumSize(sceneSize, sceneSize);
     ui->graphicsView->setMouseTracking(true);
 
-    ui->statusBar->showMessage("Dynamic Geometry");
+    ui->statusBar->showMessage(QStringLiteral("Dynamic Geometry"));
 }
 
 MainWindow::~MainWindow()
@@ -59,42 +59,42 @@ void MainWindow::resizeEvent(QResizeEvent *event)
 
 void MainWindow::on_actionPunkt_triggered()
 {
-    scene->setNextNewShape(Shape::POINT, "P");
+    scene->setNextNewShape(Shape::POINT, QStringLiteral("P"));
 }
 
 void MainWindow::on_actionStrecke_triggered()
 {
-    scene->setNextNewShape(Shape::SEGMENT, "PP");
+    scene->setNextNewShape(Shape::SEGMENT, QStringLiteral("PP"));
 }
 
 void MainWindow::on_actionKreis_triggered()
 {
-    scene->setNextNewShape(Shape::CIRCLE, "PP");
+    scene->setNextNewShape(Shape::CIRCLE, QStringLiteral("PP"));
 }
 
 void MainWindow::on_actionSelect_triggered()
 {
-    scene->setNextNewShape(Shape::OBJECT, nullptr);
+    scene->setNextNewShape(Shape::OBJECT, "");
 }
 
 void MainWindow::on_actionLine_triggered()
 {
-    scene->setNextNewShape(Shape::LINE, "PP");
+    scene->setNextNewShape(Shape::LINE, QStringLiteral("PP"));
 }
 
 void MainWindow::on_actionPointAtCircle_triggered()
 {
-    scene->setNextNewShape(Shape::DISTPOINT , "PP");
+    scene->setNextNewShape(Shape::DISTPOINT , QStringLiteral("PP"));
 }
 
 void MainWindow::on_actionDynamicCircle_triggered()
 {
-    scene->setNextNewShape(Shape::DYNCIRCLE , "PC");
+    scene->setNextNewShape(Shape::DYNCIRCLE , QStringLiteral("PC"));
 }
 
 void MainWindow::on_actionRemove_triggered()
 {
-    foreach (QGraphicsItem *item, scene->selectedItems())
+    Q_FOREACH( QGraphicsItem *item, scene->selectedItems() )
     {
         scene->removeItem(item);
         delete item;
@@ -110,17 +110,17 @@ void MainWindow::on_actionVisible_triggered()
 
 void MainWindow::on_actionTracker_triggered()
 {
-    scene->setNextNewShape(Shape::POINTPATH, "P");
+    scene->setNextNewShape(Shape::POINTPATH, QStringLiteral("P"));
 }
 
 void MainWindow::on_actionCleanTracker_triggered()
 {
-    foreach (QGraphicsItem *item, scene->selectedItems())
+    Q_FOREACH (QGraphicsItem *item, scene->selectedItems())
     {
         Shape *shape = dynamic_cast<Shape *>(item);
         if (shape->getType() == Shape::POINT)
         {
-            foreach( Shape *s, shape->getDependentShapeSet())
+            Q_FOREACH( Shape *s, shape->getDependentShapeSet())
             {
                 if (Shape::POINTPATH == s->getType())
                 {
@@ -140,10 +140,10 @@ void MainWindow::on_actionCleanTracker_triggered()
 
 void MainWindow::on_actionMidPoint_triggered()
 {
-    scene->setNextNewShape(Shape::MIDPOINT, "PP");
+    scene->setNextNewShape(Shape::MIDPOINT, QStringLiteral("PP"));
 }
 
 void MainWindow::on_actionCircleIntersection_triggered()
 {
-    scene->setNextNewShape(Shape::CIRCINT, "CC");
+    scene->setNextNewShape(Shape::CIRCINT, QStringLiteral("CC"));
 }

@@ -5,6 +5,8 @@
 //! create a line defined by two points
 class PointAtCircle : public Shape
 {
+private:
+    Q_OBJECT
 
 public:
     ShapeType getTypeClass() const override { return PCLASS; }
