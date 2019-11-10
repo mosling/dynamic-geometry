@@ -11,9 +11,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
 
     // add a group for the action items
     QActionGroup *actionGroup = new QActionGroup(ui->toolBar);
-    ui->actionPunkt->setActionGroup(actionGroup);
+    ui->actionAddPoint->setActionGroup(actionGroup);
+    ui->actionAddSegment->setActionGroup(actionGroup);
+
     ui->actionKreis->setActionGroup(actionGroup);
-    ui->actionStrecke->setActionGroup(actionGroup);
     ui->actionSelect->setActionGroup(actionGroup);
     ui->actionLine->setActionGroup(actionGroup);
     ui->actionPointAtCircle->setActionGroup(actionGroup);
@@ -57,24 +58,28 @@ void MainWindow::resizeEvent(QResizeEvent *event)
     scene->setSceneRect(bb);
 }
 
-void MainWindow::on_actionPunkt_triggered()
+void MainWindow::on_actionSelect_triggered()
 {
+    qDebug() << "start manipulation";
+    scene->setNextNewShape(Shape::OBJECT, nullptr);
+}
+
+void MainWindow::on_actionAddPoint_triggered()
+{
+    qDebug() << "start adding a new point ";
     scene->setNextNewShape(Shape::POINT, QStringLiteral("P"));
 }
 
-void MainWindow::on_actionStrecke_triggered()
+void MainWindow::on_actionAddSegment_triggered()
 {
+    qDebug() << "start adding a new segment ";
     scene->setNextNewShape(Shape::SEGMENT, QStringLiteral("PP"));
 }
 
 void MainWindow::on_actionKreis_triggered()
 {
+    qDebug() << "start adding a new circle ";
     scene->setNextNewShape(Shape::CIRCLE, QStringLiteral("PP"));
-}
-
-void MainWindow::on_actionSelect_triggered()
-{
-    scene->setNextNewShape(Shape::OBJECT, "");
 }
 
 void MainWindow::on_actionLine_triggered()

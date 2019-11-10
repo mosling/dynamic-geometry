@@ -29,10 +29,9 @@ private:
     void addNewItemAndDisplay(Shape *shape);
 
     QStatusBar       *statusBar = nullptr;
+
+    Shape::ShapeType nextShapeType;
     QString          selectionString;
     int              selectionStringIndex;
-    Shape::ShapeType nextShapeType;
     QList<Shape *>   selectionList;
-    QMap<QChar, int> objTypeMap;
-    bool             addPointMode;
 };

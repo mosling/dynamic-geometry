@@ -13,7 +13,7 @@ public:
     ShapeType getTypeClass() const override { return CCLASS; }
     ShapeType getType() const override { return CIRCLE; }
 
-    virtual void updateItem() override;
+    void updateItem() override;
 
     QRectF boundingRect() const override;
     void paint(QPainter *painter,
@@ -33,6 +33,5 @@ private:
 
     qreal radius;
     qreal diameter;
-    bool lastBox;
     Shape *centerPoint, *borderPoint;
 };

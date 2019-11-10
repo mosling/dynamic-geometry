@@ -19,10 +19,10 @@ public:
     ~MainWindow();
     virtual void resizeEvent(QResizeEvent *event);
 
-private:
-    void on_actionPunkt_triggered();
+private Q_SLOTS:
+    void on_actionAddPoint_triggered();
 
-    void on_actionStrecke_triggered();
+    void on_actionAddSegment_triggered();
 
     void on_actionKreis_triggered();
 

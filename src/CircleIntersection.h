@@ -24,5 +24,4 @@ public:
 
 private:
     Circle *c1, *c2;
-    Point *ip[2];
 };

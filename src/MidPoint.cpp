@@ -11,6 +11,7 @@ MidPoint::MidPoint(Shape *obj1, Shape *obj2)
     p2->addDependentShape(this);
 
     setToolTip("MidPoint");
+    setFlag(GraphicsItemFlag::ItemIsMovable, false);
 }
 
 void MidPoint::updateItem()

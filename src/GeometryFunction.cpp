@@ -37,7 +37,8 @@ QVector<QPointF> GeometryFunction::circleIntersection(const Circle &c1, const Ci
       qreal x = (r1 * r1 - r2 * r2 + d * d) / (2 * d);
       qreal y = qSqrt(r1 * r1 - x * x);
 
-      QPointF cp1, cp2;
+      QPointF cp1;
+      QPointF cp2;
 
       cp1.setX(p1.x() + x * ex - y * ey);
       cp1.setY(p1.y() + x * ey + y * ex);

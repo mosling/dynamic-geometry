@@ -4,6 +4,8 @@
 #include "Circle.h"
 
 Circle::Circle(Shape *obj1, Shape *obj2)
+    : radius(0),
+      diameter(0)
 {
     getOption().setPenColor(Qt::darkCyan);
     getOption().setBrushColor(Qt::cyan);

@@ -63,7 +63,6 @@ public Q_SLOTS:
     void setHelper(bool helper)
     {
         m_helper = helper;
-        this->setFlag(ItemIsSelectable, !m_helper);
     }
 
     void setboundingBox(bool boundingBox)

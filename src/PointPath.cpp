@@ -15,6 +15,8 @@ PointPath::PointPath(Shape *obj1)
 
 void PointPath::updateItem()
 {
+    setVisible(allBaseShapesVisible());
+
     QPointF p = shape1->scenePos();
     if (GeometryFunction::distance(pointPath.at(pointPath.length() - 1), p) > resolution)
     {

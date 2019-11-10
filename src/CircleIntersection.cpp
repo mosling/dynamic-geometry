@@ -4,10 +4,6 @@
 
 CircleIntersection::CircleIntersection(Shape *obj1, Shape *obj2)
 {
-    getOption().setPenColor(QColor(79, 106, 25));
-    getOption().setBrushColor(QColor(122, 163, 39));
-    getOption().setPenWidth(3.0);
-
     c1 = dynamic_cast<Circle *>(obj1);
     c2 = dynamic_cast<Circle *>(obj2);
 
@@ -19,6 +15,8 @@ CircleIntersection::CircleIntersection(Shape *obj1, Shape *obj2)
 
 void CircleIntersection::updateItem()
 {
+    setVisible(allBaseShapesVisible());
+
     QVector<QPointF> l = GeometryFunction::circleIntersection(*c1, *c2);
 
     for (int i = 0; i < dependentShapeSet.size(); ++i)

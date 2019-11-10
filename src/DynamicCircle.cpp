@@ -18,6 +18,8 @@ DynamicCircle::DynamicCircle(Shape *obj1, Shape *obj2)
 
 void DynamicCircle::updateItem()
 {
+    setVisible(allBaseShapesVisible());
+
     QPointF a = p1->scenePos();
 
     setPos(a);

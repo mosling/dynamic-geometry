@@ -18,6 +18,8 @@ Segment::Segment(Shape *obj1, Shape *obj2)
 
 void Segment::updateItem()
 {
+    setVisible(allBaseShapesVisible());
+
     line = QLineF(p1->scenePos(), p2->scenePos());
 
     prepareGeometryChange();

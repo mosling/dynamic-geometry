@@ -11,7 +11,9 @@
 
 GeometryScene::GeometryScene(QObject *parent)
     : QGraphicsScene(parent),
-      selectionString("")
+      nextShapeType(Shape::STOPPER),
+      selectionString(""),
+      selectionStringIndex(-1)
 {
 }
 

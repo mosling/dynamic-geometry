@@ -3,7 +3,8 @@
 #include "GeometryView.h"
 
 GeometryView::GeometryView(QWidget *parent)
-    :QGraphicsView(parent)
+    : QGraphicsView(parent),
+      _numScheduledScalings(0)
 {
 
 }
